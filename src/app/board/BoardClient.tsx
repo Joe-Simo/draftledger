@@ -26,7 +26,11 @@ import {
   suggestRole,
   type ChampionInfo,
 } from "@/lib/champions";
+import { buildInsights } from "@/lib/insights";
+import { buildPrepSheet } from "@/lib/prep";
+import { nextGameOutlook, suggestForStep } from "@/lib/suggest";
 import { ROLES, type Role } from "@/lib/types";
+import { InsightsPanel, OutlookPanel, PrepSheetPanel, SuggestionsPanel } from "./ScoutingPanels";
 
 const STORAGE_KEY = "draftledger.board.v1";
 const TEAMS: TeamKey[] = ["A", "B"];
@@ -48,6 +52,7 @@ export function BoardClient() {
   const [query, setQuery] = useState("");
   const [role, setRole] = useState<Role | "auto">("auto");
   const [showSetup, setShowSetup] = useState(true);
+  const [generated, setGenerated] = useState(() => new Date().toISOString().slice(0, 10));
 
   // Hydrate from localStorage after mount: reading it during render would break static export hydration.
   useEffect(() => {
@@ -91,6 +96,26 @@ export function BoardClient() {
       setError(r.error ?? null);
     },
     [state],
+  );
+
+  const scout = state.config.scout;
+  const opponent = useMemo(() => teams.find((x) => x.teamId === scout?.opponentId), [teams, scout]);
+  const own = useMemo(() => teams.find((x) => x.teamId === scout?.ownId), [teams, scout]);
+  const suggestions = useMemo(
+    () => (scout && opponent ? suggestForStep({ config: state.config, view, scout, opponent, own, champions }) : null),
+    [state.config, view, scout, opponent, own, champions],
+  );
+  const outlook = useMemo(
+    () => (opponent ? nextGameOutlook({ config: state.config, view, opponent }) : null),
+    [state.config, view, opponent],
+  );
+  const insights = useMemo(
+    () => (opponent ? buildInsights(opponent, { maxRemainingGames: view.maxRemainingGames || undefined }) : null),
+    [opponent, view.maxRemainingGames],
+  );
+  const sheet = useMemo(
+    () => (opponent && scout ? buildPrepSheet(state.config, state.log, opponent, generated) : null),
+    [state.config, state.log, opponent, scout, generated],
   );
 
   const names = (t: TeamKey) => state.config.teams[t].name || `Team ${t}`;
@@ -137,17 +162,17 @@ export function BoardClient() {
 
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-8">
-      <div className="flex items-baseline justify-between">
+      <div className="no-print flex items-baseline justify-between">
         <h1 className="text-2xl font-semibold tracking-tight">Series board</h1>
         <Link href="/" className="text-sm text-zinc-500 hover:underline">
           Team reports
         </Link>
       </div>
-      <p className="mt-1 text-sm text-zinc-500">
+      <p className="no-print mt-1 text-sm text-zinc-500">
         Standard LoL draft, Fearless lock across games, per-role pools. Saved in this browser only.
       </p>
 
-      <section className="mt-4 rounded border border-zinc-300 p-4 dark:border-zinc-700">
+      <section className="no-print mt-4 rounded border border-zinc-300 p-4 dark:border-zinc-700">
         <button className="text-sm font-medium underline-offset-2 hover:underline" onClick={() => setShowSetup((s) => !s)}>
           {showSetup ? "Hide setup" : "Show setup"}
         </button>
@@ -226,14 +251,76 @@ export function BoardClient() {
                 </div>
               ))}
             </div>
-            <button className="rounded bg-zinc-900 px-3 py-1.5 text-sm text-white dark:bg-zinc-100 dark:text-zinc-900" onClick={applySetup}>
-              Start new series (clears the draft)
-            </button>
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              <label>
+                Scouted opponent
+                <select
+                  aria-label="Scouted opponent"
+                  className="ml-2 rounded border border-zinc-300 bg-transparent px-2 py-1"
+                  value={config.scout?.opponentId ?? ""}
+                  onChange={(e) => {
+                    const opponentId = e.target.value;
+                    setConfig((c) => ({ ...c, scout: opponentId ? { opponent: c.scout?.opponent ?? "B", opponentId, ownId: c.scout?.ownId } : undefined }));
+                    if (opponentId) {
+                      const t = teams.find((x) => x.teamId === opponentId);
+                      const key = config.scout?.opponent ?? "B";
+                      if (t) setConfig((c) => ({ ...c, teams: { ...c.teams, [key]: { ...c.teams[key], name: t.name, pool: poolsFromTeam(t, 2) } } }));
+                    }
+                  }}
+                >
+                  <option value="">None</option>
+                  {teams.map((x) => (
+                    <option key={x.teamId} value={x.teamId}>
+                      {x.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                plays as
+                <select
+                  aria-label="Scouted side of the board"
+                  className="ml-2 rounded border border-zinc-300 bg-transparent px-2 py-1"
+                  value={config.scout?.opponent ?? "B"}
+                  onChange={(e) => setConfig((c) => (c.scout ? { ...c, scout: { ...c.scout, opponent: e.target.value as TeamKey } } : c))}
+                >
+                  <option value="A">Team A</option>
+                  <option value="B">Team B</option>
+                </select>
+              </label>
+              <label>
+                Our team (for pick ideas)
+                <select
+                  aria-label="Our team"
+                  className="ml-2 rounded border border-zinc-300 bg-transparent px-2 py-1"
+                  value={config.scout?.ownId ?? ""}
+                  onChange={(e) => setConfig((c) => (c.scout ? { ...c, scout: { ...c.scout, ownId: e.target.value || undefined } } : c))}
+                >
+                  <option value="">League-wide</option>
+                  {teams.map((x) => (
+                    <option key={x.teamId} value={x.teamId}>
+                      {x.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <button className="rounded bg-zinc-900 px-3 py-1.5 text-sm text-white dark:bg-zinc-100 dark:text-zinc-900" onClick={applySetup}>
+                Start new series (clears the draft)
+              </button>
+              <button
+                className="rounded border border-zinc-300 px-3 py-1.5 text-sm"
+                onClick={() => dispatch({ type: "scout", scout: config.scout })}
+              >
+                Apply scouting only (keeps the draft)
+              </button>
+            </div>
           </div>
         ) : null}
       </section>
 
-      <section className="mt-6">
+      <section className="no-print mt-6">
         <div className="flex flex-wrap items-center gap-3">
           <h2 className="text-lg font-semibold">
             {names("A")} {view.score.A} : {view.score.B} {names("B")}
@@ -279,6 +366,9 @@ export function BoardClient() {
             </div>
 
             <DraftStrip view={view} names={names} />
+
+            {view.next ? <SuggestionsPanel data={suggestions} onPick={choose} /> : null}
+            <OutlookPanel data={outlook} />
 
             {view.next ? (
               <div className="rounded border border-zinc-300 p-3 dark:border-zinc-700">
@@ -355,7 +445,15 @@ export function BoardClient() {
         ) : null}
       </section>
 
-      <section className="mt-8">
+      {opponent && insights ? (
+        <div className="mt-8">
+          <InsightsPanel result={insights} opponent={opponent} />
+        </div>
+      ) : (
+        <p className="no-print mt-8 text-sm text-zinc-500">Pick a scouted opponent in the setup to see suggestions, insights and the prep sheet.</p>
+      )}
+
+      <section className="no-print mt-8">
         <h2 className="text-lg font-semibold">Role pools</h2>
         <p className="text-sm text-zinc-500">
           Remaining champions per role after Fearless locks. Needed counts the games each role may still have to fill in
@@ -406,7 +504,9 @@ export function BoardClient() {
         </div>
       </section>
 
-      <footer className="mt-10 text-xs text-zinc-500">
+      {sheet ? <PrepSheetPanel sheet={sheet} onRefresh={() => setGenerated(new Date().toISOString().slice(0, 10))} /> : null}
+
+      <footer className="no-print mt-10 text-xs text-zinc-500">
         DraftLedger is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone
         officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are
         trademarks or registered trademarks of Riot Games, Inc. Champion names are shown as text only; the two-letter

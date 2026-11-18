@@ -14,12 +14,22 @@ export interface TeamSetup {
   pool: Record<Role, string[]>;
 }
 
+export interface Scout {
+  /** Which board team is the scouted opponent. */
+  opponent: TeamKey;
+  opponentId: string;
+  /** Optional aggregate of our own team, used for pick suggestions. */
+  ownId?: string;
+}
+
 export interface BoardConfig {
   format: SeriesFormat;
   fearless: boolean;
   teams: Record<TeamKey, TeamSetup>;
   /** Blue side team in game 1. Later games default to the loser of the previous game. */
   firstBlue: TeamKey;
+  /** Scouting setup; optional so older saved boards still load. */
+  scout?: Scout;
 }
 
 export interface Step {
@@ -53,7 +63,9 @@ export type BoardCommand =
   | { type: "event"; event: BoardEvent }
   | { type: "undo" }
   | { type: "redo" }
-  | { type: "configure"; config: BoardConfig };
+  | { type: "configure"; config: BoardConfig }
+  /** Change the scouted opponent without touching the draft log. */
+  | { type: "scout"; scout: Scout | undefined };
 
 export interface ActionView {
   step: Step;
@@ -262,6 +274,8 @@ export function boardReducer(state: BoardState, cmd: BoardCommand): { state: Boa
   switch (cmd.type) {
     case "configure":
       return { state: initialState(cmd.config) };
+    case "scout":
+      return { state: { ...state, config: { ...state.config, scout: cmd.scout } } };
     case "undo": {
       const last = state.log[state.log.length - 1];
       if (!last) return { state, error: "nothing to undo" };

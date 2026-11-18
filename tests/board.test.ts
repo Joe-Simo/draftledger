@@ -290,6 +290,16 @@ describe("undo and redo", () => {
     expect(r.state).toBe(s);
   });
 
+  it("changing the scouted team keeps the draft", () => {
+    let s = run(initialState(cfg()), { t: "ban", champion: "x" });
+    s = boardReducer(s, { type: "scout", scout: { opponent: "B", opponentId: "42" } }).state;
+    expect(s.log).toHaveLength(1);
+    expect(s.config.scout).toEqual({ opponent: "B", opponentId: "42" });
+    s = boardReducer(s, { type: "scout", scout: undefined }).state;
+    expect(s.config.scout).toBeUndefined();
+    expect(validState(s)).toBe(true);
+  });
+
   it("configure resets the log", () => {
     let s = run(initialState(cfg()), { t: "ban", champion: "x" });
     s = boardReducer(s, { type: "configure", config: cfg({ format: 5 }) } as BoardCommand).state;
