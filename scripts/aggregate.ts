@@ -3,6 +3,7 @@
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { aggregateTeams } from "../src/lib/aggregate.ts";
+import { buildChampionSummary } from "../src/lib/champions.ts";
 import { classifyFearlessStages } from "../src/lib/fearless.ts";
 import type { DraftGameRecord } from "../src/lib/types.ts";
 
@@ -14,6 +15,7 @@ const outDir = path.resolve("public/data");
 mkdirSync(outDir, { recursive: true });
 writeFileSync(path.join(outDir, "teams.json"), JSON.stringify({ teams }) + "\n");
 
+writeFileSync(path.join(outDir, "champions.json"), JSON.stringify({ champions: buildChampionSummary(records) }) + "\n");
 const seriesIds = new Set(records.map((r) => r.seriesId));
 const meta = {
   source: "Official GRID LoL series via the Sky's The Limit 2026 starter repository (aggregates only)",

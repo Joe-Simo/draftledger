@@ -11,6 +11,12 @@ export default function Home() {
         Fearless Draft prep for League of Legends coaching staffs. Pick an opponent to see what they repeat, with sample
         sizes.
       </p>
+      <p className="mt-2 text-sm">
+        <Link className="font-medium underline-offset-2 hover:underline" href="/board">
+          Open the series board
+        </Link>{" "}
+        to run a Bo1, Bo3 or Bo5 Fearless draft with role pools.
+      </p>
       <p className="mt-2 text-sm text-zinc-500">
         {meta.games.toLocaleString()} games from {meta.series} series, {meta.fearlessSeries} of them Fearless series.
         Teams with at least {meta.minGamesPerTeam} games are listed.
