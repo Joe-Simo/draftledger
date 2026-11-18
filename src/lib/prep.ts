@@ -1,5 +1,6 @@
 import type { TeamAggregate } from "./aggregate.ts";
 import { deriveView, other, type BoardConfig, type BoardEvent, type TeamKey } from "./board.ts";
+import { RIOT_BOILERPLATE, RIOT_JIBBER_JABBER } from "./legal.ts";
 import { buildInsights, insightContext, pctText, type InsightResult } from "./insights.ts";
 import { nextGameOutlook, type NextGameOutlook } from "./suggest.ts";
 import type { Role } from "./types.ts";
@@ -73,7 +74,7 @@ export function toMarkdown(s: PrepSheet): string {
       L.push(`Bans: ${d.bans.join("; ") || "none"}`, "", `Picks: ${d.picks.join("; ") || "none"}`, "");
     }
   }
-  L.push("---", "Counts come from official GRID esports data supplied for the Cloud9 x JetBrains hackathon (aggregates only). DraftLedger is not endorsed by Riot Games. Built with AI coding agents directed by Joe Simo.", "");
+  L.push("---", `Counts come from official GRID esports data supplied for the Cloud9 x JetBrains hackathon (aggregates only). ${RIOT_BOILERPLATE} ${RIOT_JIBBER_JABBER} Built with AI coding agents directed by Joe Simo.`, "");
   return L.join("\n");
 }
 

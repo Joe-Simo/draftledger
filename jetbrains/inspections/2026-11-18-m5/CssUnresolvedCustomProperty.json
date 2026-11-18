@@ -1,0 +1,44 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/src/app/globals.css",
+      "line": 11,
+      "offset": 19,
+      "length": 17,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved custom property",
+        "id": "CssUnresolvedCustomProperty",
+        "severity": "ERROR",
+        "attribute_key": "ERRORS_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/src/app/globals.css"
+      },
+      "highlighted_element": "--font-geist-sans",
+      "language": "CSS",
+      "description": "Cannot resolve \u003ccode\u003e--font-geist-sans\u003c/code\u003e custom property"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/src/app/globals.css",
+      "line": 12,
+      "offset": 19,
+      "length": 17,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved custom property",
+        "id": "CssUnresolvedCustomProperty",
+        "severity": "ERROR",
+        "attribute_key": "ERRORS_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/src/app/globals.css"
+      },
+      "highlighted_element": "--font-geist-mono",
+      "language": "CSS",
+      "description": "Cannot resolve \u003ccode\u003e--font-geist-mono\u003c/code\u003e custom property"
+    }
+  ]
+}

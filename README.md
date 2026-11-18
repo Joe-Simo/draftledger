@@ -4,9 +4,11 @@ Fearless Draft preparation for League of Legends coaching staffs. Built for the
 Cloud9 x JetBrains "Sky's The Limit" hackathon, Category 2 (LoL): Macro Scouting
 & Draft Management System.
 
-Status: milestone 1. Draft ingestion, Fearless detection, per-team pick and ban
-tendencies and a static team report page. The series board, insights and demo
-link land here as they are built. Data audit: `docs/data-notes.md`.
+Status: working build. Draft ingestion, Fearless detection, per-team tendencies,
+a static team report, the `/board` series board (Bo1/3/5, Fearless locks, role
+pools, scouting suggestions, how-to-win insights, prep sheet export), and
+per-game plans with live checks and a series forecast (ported from the Fearplan
+prototype). Data audit: `docs/data-notes.md`.
 
 ## Develop
 
@@ -40,8 +42,10 @@ npm run build            # static export into out/
 
 ## Built with JetBrains
 
-JetBrains tools used and what each one did is documented in `AI_SHOWCASE.md`
-(added during the build).
+IntelliJ IDEA's command-line inspector is run over `src/` with the committed
+profile in `.idea/`; see `jetbrains/README.md` for the runs, the findings fixed
+and what that evidence does and does not show. JetBrains tool use overall will
+be written up in `AI_SHOWCASE.md`.
 
 ## AI use disclosure
 
@@ -52,7 +56,10 @@ problem, scope and design direction and reviewed and approved the outputs.
 
 MIT. See `LICENSE`.
 
-DraftLedger is not endorsed by Riot Games and does not reflect the views or
+DraftLedger isn't endorsed by Riot Games and doesn't reflect the views or
 opinions of Riot Games or anyone officially involved in producing or managing
-Riot Games properties. Riot Games and all associated properties are trademarks
+Riot Games properties. Riot Games, and all associated properties are trademarks
 or registered trademarks of Riot Games, Inc.
+
+DraftLedger was created under Riot Games' "Legal Jibber Jabber" policy using
+assets owned by Riot Games. Riot Games does not endorse or sponsor this project.

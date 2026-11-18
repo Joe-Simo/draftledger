@@ -170,7 +170,7 @@ export function buildInsights(team: TeamAggregate, opts: InsightOptions = {}): I
     } else suppressed++;
   } else if (blue.games + red.games >= MIN_CLAIM_N) suppressed++;
 
-  // 4. Fearless: game 1 signatures and comfort-pool erosion.
+  // 4. Fearless: the signature pick for the current game and comfort-pool erosion.
   const f = team.fearless;
   if (f) {
     const g1 = f.byGame["1"];

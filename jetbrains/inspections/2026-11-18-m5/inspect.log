@@ -1,0 +1,61 @@
+Starting up IntelliJ IDEA 2026.3 (build IU-263.7307.200)…done.
+Opening project…
+done.
+Initializing project…Loaded the 'Project Default' profile from the file '$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml'
+done.
+Inspecting with the 'Project Default' profile
+
+Detected 0 package.json files under the project to install dependencies
+Scanning scope…
+Processing project usages in …/src/lib/aggregate.ts
+Processing project usages in …/src/lib/suggest.ts
+Processing project usages in …/src/lib/board.ts
+Processing project usages in …/src/lib/plan.ts
+Processing project usages in …/src/lib/ingest.ts
+Processing project usages in …/src/lib/csv.ts
+Processing project usages in …/src/lib/forecast.ts
+Processing project usages in …/src/lib/legal.ts
+Processing project usages in …/src/lib/roles.ts
+Processing project usages in …/src/lib/fearless.ts
+Processing project usages in …/src/lib/data.ts
+Processing project usages in …/src/lib/types.ts
+Processing project usages in …/src/app/board/PlanPanel.tsx
+Processing project usages in …/src/lib/prep.ts
+Processing project usages in …/src/lib/champions.ts
+Processing project usages in …/src/app/board/page.tsx
+Processing project usages in …/src/app/globals.css
+Processing project usages in …/src/app/page.tsx
+Processing project usages in …/src/app/board/BoardClient.tsx
+Processing project usages in …/src/app/board/ScoutingPanels.tsx
+Processing project usages in …/src/app/favicon.ico
+Processing project usages in …/src/app/SiteFooter.tsx
+Processing project usages in …/src/app/team/[id]/page.tsx
+Processing project usages in …/src/app/layout.tsx
+Processing project usages in …/src/lib/insights.ts
+Analyzing code in …/src/app/globals.css
+Analyzing code in …/src/app/layout.tsx
+Analyzing code in …/src/app/page.tsx
+Analyzing code in …/src/lib/data.ts
+Analyzing code in …/src/lib/csv.ts
+Analyzing code in …/src/lib/suggest.ts
+Analyzing code in …/src/app/board/ScoutingPanels.tsx
+Analyzing code in …/src/lib/board.ts
+Analyzing code in …/src/lib/ingest.ts
+Analyzing code in …/src/lib/types.ts
+Analyzing code in …/src/lib/legal.ts
+Analyzing code in …/src/lib/aggregate.ts
+Analyzing code in …/src/lib/roles.ts
+Analyzing code in …/src/lib/insights.ts
+Analyzing code in …/src/lib/forecast.ts
+Analyzing code in …/src/lib/plan.ts
+Analyzing code in …/src/lib/champions.ts
+Analyzing code in …/src/app/board/page.tsx
+Analyzing code in …/src/app/SiteFooter.tsx
+Analyzing code in …/src/lib/fearless.ts
+Analyzing code in …/src/app/board/PlanPanel.tsx
+Analyzing code in …/src/app/team/[id]/page.tsx
+Analyzing code in …/src/lib/prep.ts
+Analyzing code in …/src/app/board/BoardClient.tsx
+
+Done.
+

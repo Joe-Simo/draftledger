@@ -58,7 +58,7 @@ export function suggestRole(info: ChampionInfo | undefined, filled: Role[], pool
 }
 
 /**
- * Role for a pick. A manual choice is honoured only while that role is still open; otherwise (and for
+ * Role for a pick. A manual choice is honored only while that role is still open; otherwise (and for
  * "auto") the champion's most common open role is used.
  */
 export function resolvePickRole(

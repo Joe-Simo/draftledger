@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { SiteFooter } from "./SiteFooter";
 
 export const metadata: Metadata = {
   title: "DraftLedger",
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col"><div className="flex-1">{children}</div>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

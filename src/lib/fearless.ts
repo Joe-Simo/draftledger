@@ -71,7 +71,7 @@ export interface FearlessOptions {
 }
 
 /**
- * Detect Fearless Draft without any rules metadata. In a Fearless series no champion can be picked
+ * Detect Fearless series when no rules metadata exists. In a Fearless series, no champion can be picked
  * twice, so every multi-game series in a Fearless stage has zero reuse. In a normal stage reuse is
  * common (popular champions are picked again in game 2 and 3). We group series by event and stage
  * and call the stage Fearless when nearly all multi-game series show zero reuse.

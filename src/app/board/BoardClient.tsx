@@ -26,13 +26,17 @@ import {
   resolvePickRole,
   type ChampionInfo,
 } from "@/lib/champions";
+import { buildForecast } from "@/lib/forecast";
 import { buildInsights, insightContext } from "@/lib/insights";
+import { emptyPlans, normalizePlans, ourTeam, planSuggestion, type GamePlan } from "@/lib/plan";
 import { buildPrepSheet } from "@/lib/prep";
 import { applyScoutSetup, nextGameOutlook, suggestForStep } from "@/lib/suggest";
 import { ROLES, type Role } from "@/lib/types";
+import { PlanPanel } from "./PlanPanel";
 import { InsightsPanel, OutlookPanel, PrepSheetPanel, SuggestionsPanel } from "./ScoutingPanels";
 
 const STORAGE_KEY = "draftledger.board.v1";
+const PLANS_KEY = "draftledger.plans.v1";
 const TEAMS: TeamKey[] = ["A", "B"];
 
 const badge: Record<RolePool["status"], string> = {
@@ -53,6 +57,7 @@ export function BoardClient() {
   const [role, setRole] = useState<Role | "auto">("auto");
   const [showSetup, setShowSetup] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  const [plans, setPlans] = useState<GamePlan[]>(() => emptyPlans());
   const [generated, setGenerated] = useState(() => new Date().toISOString().slice(0, 10));
 
   // Hydrate from localStorage after mount: reading it during render would break static export hydration.
@@ -68,6 +73,8 @@ export function BoardClient() {
           setShowSetup(parsed.log.length === 0);
         }
       }
+      const rawPlans = localStorage.getItem(PLANS_KEY);
+      if (rawPlans) setPlans(normalizePlans(JSON.parse(rawPlans)));
     } catch {
       /* ignore corrupt storage */
     }
@@ -86,6 +93,10 @@ export function BoardClient() {
   useEffect(() => {
     if (ready) localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
   }, [state, ready]);
+
+  useEffect(() => {
+    if (ready) localStorage.setItem(PLANS_KEY, JSON.stringify(plans));
+  }, [plans, ready]);
 
   const view = useMemo(() => deriveView(state.config, state.log), [state]);
   const info = useMemo(() => new Map(champions.map((c) => [c.name, c])), [champions]);
@@ -118,6 +129,14 @@ export function BoardClient() {
     () => (opponent && scout ? buildPrepSheet(state.config, state.log, opponent, generated) : null),
     [state.config, state.log, opponent, scout, generated],
   );
+
+  const championNames = useMemo(() => champions.map((c) => c.name), [champions]);
+  const knownNames = useMemo(() => (champions.length ? new Set(championNames) : null), [champions.length, championNames]);
+  const forecast = useMemo(() => buildForecast(state.config, view, plans, knownNames), [state.config, view, plans, knownNames]);
+  const planNow = useMemo(() => {
+    const game = view.current?.number;
+    return game ? planSuggestion(state.config, view, plans[game - 1]) : null;
+  }, [state.config, view, plans]);
 
   const names = (t: TeamKey) => state.config.teams[t].name || `Team ${t}`;
   const cur = view.current;
@@ -413,6 +432,21 @@ export function BoardClient() {
 
             <DraftStrip view={view} names={names} />
 
+            {planNow ? (
+              <div className="flex flex-wrap items-center gap-2 rounded border border-sky-300 bg-sky-50 px-3 py-2 text-sm text-sky-950" aria-label="Plan says">
+                <strong>Your plan says:</strong>
+                {planNow.champion ? (
+                  <>
+                    <button className="rounded bg-sky-900 px-2 py-0.5 text-white" onClick={() => choose(planNow.champion!)}>
+                      {view.next!.kind} {planNow.champion}
+                    </button>
+                    <span>{planNow.reason}{planNow.alternatives.length ? `. Then: ${planNow.alternatives.slice(0, 3).join(", ")}` : ""}</span>
+                  </>
+                ) : (
+                  <span>{planNow.reason}</span>
+                )}
+              </div>
+            ) : null}
             {view.next ? <SuggestionsPanel data={suggestions} onPick={choose} /> : null}
             <OutlookPanel data={outlook} />
 
@@ -520,6 +554,16 @@ export function BoardClient() {
         <p className="no-print mt-8 text-sm text-zinc-500">Pick a scouted opponent in the setup to see suggestions, insights and the prep sheet.</p>
       )}
 
+      <PlanPanel
+        plans={plans}
+        forecast={forecast}
+        names={championNames}
+        format={state.config.format}
+        currentGame={view.current?.number ?? 0}
+        teamName={names(ourTeam(state.config))}
+        onChange={(i, p) => setPlans((all) => all.map((x, k) => (k === i ? p : x)))}
+      />
+
       <section className="no-print mt-8">
         <h2 className="text-lg font-semibold">Role pools</h2>
         <p className="text-sm text-zinc-500">
@@ -573,12 +617,6 @@ export function BoardClient() {
 
       {sheet ? <PrepSheetPanel sheet={sheet} onRefresh={() => setGenerated(new Date().toISOString().slice(0, 10))} /> : null}
 
-      <footer className="no-print mt-10 text-xs text-zinc-500">
-        DraftLedger is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone
-        officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are
-        trademarks or registered trademarks of Riot Games, Inc. Champion names are shown as text only; the two-letter
-        badges are generic initials, not game art. Built with AI coding agents directed by Joe Simo.
-      </footer>
     </main>
   );
 }

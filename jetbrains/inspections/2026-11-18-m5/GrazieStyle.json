@@ -1,0 +1,24 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/src/lib/champions.ts",
+      "line": 61,
+      "offset": 39,
+      "length": 8,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/src/lib/champions.ts"
+      },
+      "highlighted_element": "honoured",
+      "language": "TypeScript",
+      "description": "British roots ending with \u0027-our\u0027 usually have \u0027-or\u0027 in American English"
+    }
+  ]
+}

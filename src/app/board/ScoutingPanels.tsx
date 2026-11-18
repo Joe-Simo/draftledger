@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { TeamAggregate } from "@/lib/aggregate";
+import { RIOT_BOILERPLATE, RIOT_JIBBER_JABBER } from "@/lib/legal";
 import { pctText } from "@/lib/insights";
 import type { PrepSheet } from "@/lib/prep";
 import { toCsv, toMarkdown } from "@/lib/prep";
@@ -226,7 +227,7 @@ export function PrepSheetPanel({ sheet, onRefresh }: { sheet: PrepSheet; onRefre
       ))}
       <p className="mt-4 text-xs text-zinc-500">
         Counts from official GRID esports data supplied for the Cloud9 x JetBrains hackathon (aggregates only).
-        DraftLedger is not endorsed by Riot Games. Built with AI coding agents directed by Joe Simo.
+        {RIOT_BOILERPLATE} {RIOT_JIBBER_JABBER} Built with AI coding agents directed by Joe Simo.
       </p>
     </section>
   );

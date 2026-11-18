@@ -45,10 +45,6 @@ export default function Home() {
           ))}
         </tbody>
       </table>
-      <footer className="mt-10 text-xs text-zinc-500">
-        Built with AI coding agents directed by Joe Simo. Not endorsed by Riot Games. Data: official GRID esports data
-        supplied for the Cloud9 x JetBrains hackathon, shown as aggregate counts only.
-      </footer>
     </main>
   );
 }
