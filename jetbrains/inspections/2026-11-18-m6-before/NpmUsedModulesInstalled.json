@@ -1,0 +1,64 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/eslint.config.mjs",
+      "line": 1,
+      "offset": 44,
+      "length": 15,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Missing module dependency",
+        "id": "NpmUsedModulesInstalled",
+        "severity": "WEAK WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/eslint.config.mjs"
+      },
+      "highlighted_element": "\"eslint/config\"",
+      "language": "JavaScript",
+      "description": "Module is not listed in package.json dependencies"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/eslint.config.mjs",
+      "line": 2,
+      "offset": 23,
+      "length": 36,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Missing module dependency",
+        "id": "NpmUsedModulesInstalled",
+        "severity": "WEAK WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/eslint.config.mjs"
+      },
+      "highlighted_element": "\"eslint-config-next/core-web-vitals\"",
+      "language": "JavaScript",
+      "description": "Module is not listed in package.json dependencies"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/eslint.config.mjs",
+      "line": 3,
+      "offset": 19,
+      "length": 31,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Missing module dependency",
+        "id": "NpmUsedModulesInstalled",
+        "severity": "WEAK WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/eslint.config.mjs"
+      },
+      "highlighted_element": "\"eslint-config-next/typescript\"",
+      "language": "JavaScript",
+      "description": "Module is not listed in package.json dependencies"
+    }
+  ]
+}

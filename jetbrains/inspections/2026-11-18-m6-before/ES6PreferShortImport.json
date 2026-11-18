@@ -1,0 +1,184 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/scripts/aggregate.ts",
+      "line": 5,
+      "offset": 31,
+      "length": 25,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Import can be shortened",
+        "id": "ES6PreferShortImport",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/scripts/aggregate.ts"
+      },
+      "highlighted_element": "\"../src/lib/aggregate.ts\"",
+      "language": "JavaScript",
+      "description": "Import can be shortened"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/scripts/aggregate.ts",
+      "line": 6,
+      "offset": 37,
+      "length": 25,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Import can be shortened",
+        "id": "ES6PreferShortImport",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/scripts/aggregate.ts"
+      },
+      "highlighted_element": "\"../src/lib/champions.ts\"",
+      "language": "JavaScript",
+      "description": "Import can be shortened"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/scripts/aggregate.ts",
+      "line": 7,
+      "offset": 39,
+      "length": 24,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Import can be shortened",
+        "id": "ES6PreferShortImport",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/scripts/aggregate.ts"
+      },
+      "highlighted_element": "\"../src/lib/fearless.ts\"",
+      "language": "JavaScript",
+      "description": "Import can be shortened"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/scripts/aggregate.ts",
+      "line": 8,
+      "offset": 37,
+      "length": 21,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Import can be shortened",
+        "id": "ES6PreferShortImport",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/scripts/aggregate.ts"
+      },
+      "highlighted_element": "\"../src/lib/types.ts\"",
+      "language": "JavaScript",
+      "description": "Import can be shortened"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/scripts/build-records.ts",
+      "line": 12,
+      "offset": 7,
+      "length": 22,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Import can be shortened",
+        "id": "ES6PreferShortImport",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/scripts/build-records.ts"
+      },
+      "highlighted_element": "\"../src/lib/ingest.ts\"",
+      "language": "JavaScript",
+      "description": "Import can be shortened"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/scripts/build-records.ts",
+      "line": 13,
+      "offset": 33,
+      "length": 21,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Import can be shortened",
+        "id": "ES6PreferShortImport",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/scripts/build-records.ts"
+      },
+      "highlighted_element": "\"../src/lib/types.ts\"",
+      "language": "JavaScript",
+      "description": "Import can be shortened"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/scripts/audit.ts",
+      "line": 5,
+      "offset": 25,
+      "length": 19,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Import can be shortened",
+        "id": "ES6PreferShortImport",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/scripts/audit.ts"
+      },
+      "highlighted_element": "\"../src/lib/csv.ts\"",
+      "language": "JavaScript",
+      "description": "Import can be shortened"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/scripts/audit.ts",
+      "line": 6,
+      "offset": 67,
+      "length": 24,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Import can be shortened",
+        "id": "ES6PreferShortImport",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/scripts/audit.ts"
+      },
+      "highlighted_element": "\"../src/lib/fearless.ts\"",
+      "language": "JavaScript",
+      "description": "Import can be shortened"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/scripts/audit.ts",
+      "line": 7,
+      "offset": 37,
+      "length": 21,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Import can be shortened",
+        "id": "ES6PreferShortImport",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/scripts/audit.ts"
+      },
+      "highlighted_element": "\"../src/lib/types.ts\"",
+      "language": "JavaScript",
+      "description": "Import can be shortened"
+    }
+  ]
+}

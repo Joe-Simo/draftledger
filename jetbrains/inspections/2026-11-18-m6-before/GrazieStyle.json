@@ -1,0 +1,124 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 6,
+      "offset": 42,
+      "length": 7,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "licence",
+      "language": "Markdown",
+      "description": "American English uses \u0027license\u0027"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 6,
+      "offset": 84,
+      "length": 7,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "Licence",
+      "language": "Markdown",
+      "description": "American English uses \u0027license\u0027"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 38,
+      "offset": 3,
+      "length": 7,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "Licence",
+      "language": "Markdown",
+      "description": "American English uses \u0027license\u0027"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 39,
+      "offset": 9,
+      "length": 7,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "licence",
+      "language": "Markdown",
+      "description": "American English uses \u0027license\u0027"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 39,
+      "offset": 312,
+      "length": 9,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "Project\".",
+      "language": "Markdown",
+      "description": "Long sentences (48 words here) are harder to read, according to the research; consider splitting"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 48,
+      "offset": 267,
+      "length": 7,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "licence",
+      "language": "Markdown",
+      "description": "American English uses \u0027license\u0027"
+    }
+  ]
+}

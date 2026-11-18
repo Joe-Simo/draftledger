@@ -172,7 +172,7 @@ describe("suggestForStep", () => {
     let r = suggestForStep(ctx(s))!;
     expect(r.mode).toBe("pick-theirs");
     expect(r.items.map((i) => [i.champion, i.role])).toEqual([["Aaa", "mid"], ["Bbb", "top"], ["Ccc", "jungle"]]);
-    // After they take Aaa as mid, the mid slot is filled.
+    // After they take Aaa for the middle lane, that lane is filled.
     const s2 = play(cfg(), ...bans(6), { t: "pick", champion: "mine", role: "top" }, { t: "pick", champion: "Aaa", role: "mid" });
     r = suggestForStep(ctx(s2))!; // red pick #2 (still red's turn)
     expect(r.mode).toBe("pick-theirs");

@@ -30,7 +30,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
+# env files (can opt in to committing if needed)
 .env*
 
 # vercel
@@ -50,3 +50,8 @@ stl-hackathon-2026-grid-starter/
 *.duckdb
 .derived/
 .server.log
+
+# QA artifacts derived from GRID aggregates (prep sheet exports); app screenshots stay committed
+qa/*.md
+qa/*.csv
+qa/*.tsv

@@ -2,8 +2,12 @@
 // (node scripts/build-records.ts) and STL_DATA_DIR for rosters. Prints counts only.
 import { readFileSync } from "node:fs";
 import path from "node:path";
+// These scripts run directly under node, which cannot resolve the "@/" alias, so the relative imports stay.
+// noinspection ES6PreferShortImport
 import { parseCsv } from "../src/lib/csv.ts";
+// noinspection ES6PreferShortImport
 import { classifyFearlessStages, groupBySeries, seriesReuse } from "../src/lib/fearless.ts";
+// noinspection ES6PreferShortImport
 import type { DraftGameRecord } from "../src/lib/types.ts";
 
 const dataDir = process.env.STL_DATA_DIR ?? path.resolve("../../data/stl-hackathon-2026-grid-starter");

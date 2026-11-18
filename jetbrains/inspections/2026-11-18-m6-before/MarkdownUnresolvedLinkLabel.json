@@ -1,0 +1,164 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md",
+      "line": 8,
+      "offset": 147,
+      "length": 21,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved link label",
+        "id": "MarkdownUnresolvedLinkLabel",
+        "severity": "WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md"
+      },
+      "highlighted_element": "high confidence, n\u003d45",
+      "language": "Markdown",
+      "description": "Cannot resolve link label high confidence, n\u003d45"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md",
+      "line": 9,
+      "offset": 71,
+      "length": 22,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved link label",
+        "id": "MarkdownUnresolvedLinkLabel",
+        "severity": "WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md"
+      },
+      "highlighted_element": "high confidence, n\u003d162",
+      "language": "Markdown",
+      "description": "Cannot resolve link label high confidence, n\u003d162"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md",
+      "line": 10,
+      "offset": 69,
+      "length": 22,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved link label",
+        "id": "MarkdownUnresolvedLinkLabel",
+        "severity": "WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md"
+      },
+      "highlighted_element": "high confidence, n\u003d162",
+      "language": "Markdown",
+      "description": "Cannot resolve link label high confidence, n\u003d162"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md",
+      "line": 11,
+      "offset": 67,
+      "length": 22,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved link label",
+        "id": "MarkdownUnresolvedLinkLabel",
+        "severity": "WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md"
+      },
+      "highlighted_element": "high confidence, n\u003d162",
+      "language": "Markdown",
+      "description": "Cannot resolve link label high confidence, n\u003d162"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md",
+      "line": 12,
+      "offset": 70,
+      "length": 22,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved link label",
+        "id": "MarkdownUnresolvedLinkLabel",
+        "severity": "WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md"
+      },
+      "highlighted_element": "high confidence, n\u003d162",
+      "language": "Markdown",
+      "description": "Cannot resolve link label high confidence, n\u003d162"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md",
+      "line": 13,
+      "offset": 73,
+      "length": 22,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved link label",
+        "id": "MarkdownUnresolvedLinkLabel",
+        "severity": "WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md"
+      },
+      "highlighted_element": "high confidence, n\u003d162",
+      "language": "Markdown",
+      "description": "Cannot resolve link label high confidence, n\u003d162"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md",
+      "line": 14,
+      "offset": 71,
+      "length": 22,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved link label",
+        "id": "MarkdownUnresolvedLinkLabel",
+        "severity": "WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md"
+      },
+      "highlighted_element": "high confidence, n\u003d162",
+      "language": "Markdown",
+      "description": "Cannot resolve link label high confidence, n\u003d162"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md",
+      "line": 15,
+      "offset": 178,
+      "length": 21,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved link label",
+        "id": "MarkdownUnresolvedLinkLabel",
+        "severity": "WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/qa/prep-karmine-corp.md"
+      },
+      "highlighted_element": "high confidence, n\u003d45",
+      "language": "Markdown",
+      "description": "Cannot resolve link label high confidence, n\u003d45"
+    }
+  ]
+}

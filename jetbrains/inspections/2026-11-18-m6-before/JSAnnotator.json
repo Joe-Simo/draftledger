@@ -1,0 +1,44 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/next-env.d.ts",
+      "line": 1,
+      "offset": 0,
+      "length": 30,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "ECMAScript specification is not followed",
+        "id": "JSAnnotator",
+        "severity": "WEAK WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/next-env.d.ts"
+      },
+      "highlighted_element": "/// \u003creference types\u003d\"next\" /\u003e",
+      "language": "JavaScript",
+      "description": "The reference includes files outside the project #loc"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/next-env.d.ts",
+      "line": 2,
+      "offset": 0,
+      "length": 49,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "ECMAScript specification is not followed",
+        "id": "JSAnnotator",
+        "severity": "WEAK WARNING",
+        "attribute_key": "INFO_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/next-env.d.ts"
+      },
+      "highlighted_element": "/// \u003creference types\u003d\"next/image-types/global\" /\u003e",
+      "language": "JavaScript",
+      "description": "The reference includes files outside the project #loc"
+    }
+  ]
+}

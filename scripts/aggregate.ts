@@ -2,9 +2,14 @@
 // Output: public/data/teams.json and public/data/meta.json. Counts only, see docs/data-notes.md.
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+// These scripts run directly under node, which cannot resolve the "@/" alias, so the relative imports stay.
+// noinspection ES6PreferShortImport
 import { aggregateTeams } from "../src/lib/aggregate.ts";
+// noinspection ES6PreferShortImport
 import { buildChampionSummary } from "../src/lib/champions.ts";
+// noinspection ES6PreferShortImport
 import { classifyFearlessStages } from "../src/lib/fearless.ts";
+// noinspection ES6PreferShortImport
 import type { DraftGameRecord } from "../src/lib/types.ts";
 
 const records: DraftGameRecord[] = JSON.parse(readFileSync(".derived/records.json", "utf8"));

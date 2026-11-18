@@ -9,6 +9,8 @@
       <excludeFolder url="file://$MODULE_DIR$/out" />
       <excludeFolder url="file://$MODULE_DIR$/.derived" />
       <excludeFolder url="file://$MODULE_DIR$/jetbrains" />
+      <excludeFolder url="file://$MODULE_DIR$/qa" />
+      <excludePattern pattern="next-env.d.ts" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

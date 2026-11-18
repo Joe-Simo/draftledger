@@ -1,5 +1,7 @@
 import { defineConfig, globalIgnores } from "eslint/config";
+// noinspection NpmUsedModulesInstalled
 import nextVitals from "eslint-config-next/core-web-vitals";
+// noinspection NpmUsedModulesInstalled
 import nextTs from "eslint-config-next/typescript";
 
 const eslintConfig = defineConfig([

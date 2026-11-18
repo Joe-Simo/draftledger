@@ -3,7 +3,7 @@
 Audit of the official GRID League of Legends data from the Sky's The Limit 2026 starter repository
 (`cloud9esports/stl-hackathon-2026-grid-starter`, folders `lol/` and `meta/`), run on 2026-11-18 with
 `node scripts/audit.ts`. This file holds counts and schema facts only. No raw events, no player names and
-no match identifiers are quoted. The data licence forbids committing the data, see "Licence and what is committed".
+no match identifiers are quoted. The data license forbids committing the data, see "License and what is committed".
 
 ## Coverage
 - 745 series files in `lol/series.csv`; `meta/games.csv` lists 1,739 LoL games. Seasons 2025 and 2026: LCK, LEC, LTA (North, South, Cross-Conference) and LCS.
@@ -31,12 +31,12 @@ Each line of an `events_<seriesId>_grid.jsonl.zst` file is an envelope (`id, cor
 ## Fearless Draft: counts and how it was detected
 - No Fearless flag exists in the data. Detection (`classifyFearlessStages` in `src/lib/fearless.ts`): in a Fearless series no champion can be picked twice, so a multi-game series has zero champion reuse across its games (both teams share the lock). In normal series popular champions come back in game 2 and 3.
 - All 568 multi-game series have zero reuse, so every multi-game series in this data set is a Fearless series. Lock scope is both teams: zero picks of a champion already picked by either team in an earlier game, in 568 of 568 series. Zero violations.
-- Series are grouped by event and stage. A stage is Fearless when at least 95% of at least 5 multi-game series show zero reuse. Small clean stages inherit the verdict of their event. 37 of 41 event stages are Fearless; the other 4 (Regular Season or Round 1 stages of LEC Winter 2025, LEC Versus 2026, LTA North Split 2 2025 and LTA South Split 2 2025) contain only single games, so there is nothing to detect and they are not counted.
+- Series are grouped by event and stage. A stage is Fearless when at least 95% of at least 5 multi-game series show zero reuse, and small clean stages inherit the verdict of their event. 37 of 41 event stages are Fearless; the other 4 (Regular Season or Round 1 stages of LEC Winter 2025, LEC Versus 2026, LTA North Split 2 2025 and LTA South Split 2 2025) contain only single games, so there is nothing to detect, and they are not counted.
 - Fearless series length: 252 Bo2 or two-game series, 238 three-game, 48 four-game, 30 five-game. Fearless games: 1,560 (all games of those 568 series). Single-game series are treated as non-Fearless.
 - Bans are not locked: only picks are tracked as consumed. If the app needs the exact current rules per league (for example whether a champion banned and unpicked stays available), that comes from league rules, not this data.
 
-## Licence and what is committed
-The data licence (LICENSE.md in the starter repo) allows using the data to build the project during the hackathon, forbids redistribution, commercial use and committing the data, and says the project may show results, statistics and charts and "small excerpts of the Data reasonably necessary to demonstrate the Project". Its README states "Your code, charts, screenshots and aggregate results are fine to commit".
+## License and what is committed
+The data license (LICENSE.md in the starter repo) allows using the data to build the project during the hackathon. It forbids redistribution, commercial use and committing the data. It also says the project may show results, statistics and charts and "small excerpts of the Data reasonably necessary to demonstrate the Project". Its README states "Your code, charts, screenshots and aggregate results are fine to commit".
 
 | Item | Where | Committed? |
 |---|---|---|
@@ -45,7 +45,7 @@ The data licence (LICENSE.md in the starter repo) allows using the data to build
 | Team aggregates: counts of picks, bans, wins, sides and Fearless buckets per team and champion, first and last date per team | `public/data/teams.json` | Yes: aggregate results only. No player names, series ids, game ids, per-game rows or timestamps beyond one first and one last date per team |
 | Run totals and stage verdicts (counts) | `public/data/meta.json` | Yes |
 
-Guards: `.gitignore` blocks `*.zst`, `*.jsonl`, `.derived/` and database or parquet extracts; `npm run check:no-data` fails if any such file is tracked. Team-level aggregates mention team names, which are public competitive facts; no individual players are profiled (licence section 3(e)). Open question for Cloud9: confirm that committing the team aggregates is acceptable (the README says yes). If not, `public/data` can move to gitignore and be generated in CI from the starter repo.
+Guards: `.gitignore` blocks `*.zst`, `*.jsonl`, `.derived/` and database or parquet extracts; `npm run check:no-data` fails if any such file is tracked. Team-level aggregates mention team names, which are public competitive facts; no individual players are profiled (license section 3(e)). Open question for Cloud9: confirm that committing the team aggregates is acceptable (the README says yes). If not, `public/data` can move to gitignore and be generated in CI from the starter repo.
 
 ## Known dev-only audit findings
-`npm audit` reports 16 high items, all the same advisory: picomatch ReDoS through single-branch repeated extglobs (GHSA-fc5q-39xc-vjpf, affects up to 4.0.7, which is the latest published version; the 2.x copy under fast-glob is also affected), reached through vitest, tinyglobby, fdir, fast-glob and the ESLint plugins. They exist only in the build and test toolchain. The static export ships none of these packages and no user input reaches picomatch. No patched release exists yet, so there is no non-breaking fix; `npm audit fix` changed nothing useful, and `--force` would downgrade vitest and eslint-config-next. Re-check before submission.
+`npm audit` reports 16 high items, all the same advisory: picomatch `ReDoS` through single-branch repeated extglobs (GHSA-fc5q-39xc-vjpf, affects up to 4.0.7, which is the latest published version; the 2.x copy under fast-glob is also affected), reached through `vitest`, `tinyglobby`, `fdir`, `fast-glob` and the ESLint plugins. They exist only in the build and test toolchain. The static export ships none of these packages and no user input reaches picomatch. No patched release exists yet, so there is no non-breaking fix; `npm audit fix` changed nothing useful, and `--force` would downgrade `vitest` and `eslint-config-next`. Re-check before submission.

@@ -3,6 +3,7 @@
 import { zstdDecompressSync } from "node:zlib";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
+// noinspection ES6PreferShortImport
 import {
   buildDraftRecords,
   extractDraftActions,
@@ -10,6 +11,8 @@ import {
   readRosterRows,
   readSeriesRows,
 } from "../src/lib/ingest.ts";
+// These scripts run directly under node, which cannot resolve the "@/" alias, so the relative imports stay.
+// noinspection ES6PreferShortImport
 import type { DraftAction } from "../src/lib/types.ts";
 
 const dataDir = process.env.STL_DATA_DIR ?? path.resolve("../../data/stl-hackathon-2026-grid-starter");

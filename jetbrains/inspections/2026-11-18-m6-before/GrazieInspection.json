@@ -1,0 +1,124 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/.gitignore",
+      "line": 33,
+      "offset": 17,
+      "length": 6,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Grammar",
+        "id": "GrazieInspection",
+        "severity": "GRAMMAR_ERROR",
+        "attribute_key": "GRAMMAR_ERROR"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/.gitignore"
+      },
+      "highlighted_element": "opt-in",
+      "language": "IgnoreLang",
+      "description": "The word \"opt-in\" is a noun. The verb is spelled with a space."
+    },
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 34,
+      "offset": 409,
+      "length": 4,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Grammar",
+        "id": "GrazieInspection",
+        "severity": "GRAMMAR_ERROR",
+        "attribute_key": "GRAMMAR_ERROR"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "and",
+      "language": "Markdown",
+      "description": "Use a comma before \u0027and\u0027 if it connects two independent clauses (unless they are closely connected and short)."
+    },
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 51,
+      "offset": 68,
+      "length": 5,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Grammar",
+        "id": "GrazieInspection",
+        "severity": "GRAMMAR_ERROR",
+        "attribute_key": "GRAMMAR_ERROR"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "ReDoS",
+      "language": "Markdown",
+      "description": "Did you mean \u0027Redis\u0027?"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 51,
+      "offset": 260,
+      "length": 6,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Grammar",
+        "id": "GrazieInspection",
+        "severity": "GRAMMAR_ERROR",
+        "attribute_key": "GRAMMAR_ERROR"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "vitest",
+      "language": "Markdown",
+      "description": "The standard spelling is \u0027Vitest\u0027"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/docs/data-notes.md",
+      "line": 51,
+      "offset": 587,
+      "length": 6,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Grammar",
+        "id": "GrazieInspection",
+        "severity": "GRAMMAR_ERROR",
+        "attribute_key": "GRAMMAR_ERROR"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/docs/data-notes.md"
+      },
+      "highlighted_element": "vitest",
+      "language": "Markdown",
+      "description": "The standard spelling is \u0027Vitest\u0027"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/tests/suggest.test.ts",
+      "line": 175,
+      "offset": 39,
+      "length": 8,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Grammar",
+        "id": "GrazieInspection",
+        "severity": "GRAMMAR_ERROR",
+        "attribute_key": "GRAMMAR_ERROR"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/tests/suggest.test.ts"
+      },
+      "highlighted_element": "mid slot",
+      "language": "JavaScript",
+      "description": "This word is normally spelled with a hyphen."
+    }
+  ]
+}
