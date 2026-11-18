@@ -1,0 +1,44 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/AI_SHOWCASE.md",
+      "line": 31,
+      "offset": 118,
+      "length": 10,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Grammar",
+        "id": "GrazieInspection",
+        "severity": "GRAMMAR_ERROR",
+        "attribute_key": "GRAMMAR_ERROR"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/AI_SHOWCASE.md"
+      },
+      "highlighted_element": "inspection",
+      "language": "Markdown",
+      "description": "A comma is probably missing here."
+    },
+    {
+      "file": "file://$PROJECT_DIR$/AI_SHOWCASE.md",
+      "line": 31,
+      "offset": 136,
+      "length": 12,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Grammar",
+        "id": "GrazieInspection",
+        "severity": "GRAMMAR_ERROR",
+        "attribute_key": "GRAMMAR_ERROR"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/AI_SHOWCASE.md"
+      },
+      "highlighted_element": "hand-written",
+      "language": "Markdown",
+      "description": "This word is normally spelled as one."
+    }
+  ]
+}

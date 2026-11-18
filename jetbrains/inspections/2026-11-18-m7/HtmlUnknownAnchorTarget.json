@@ -1,0 +1,24 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/src/app/layout.tsx",
+      "line": 14,
+      "offset": 18,
+      "length": 4,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unresolved fragment in a link",
+        "id": "HtmlUnknownAnchorTarget",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/src/app/layout.tsx"
+      },
+      "highlighted_element": "main",
+      "language": "TypeScript JSX",
+      "description": "Cannot resolve anchor #main"
+    }
+  ]
+}

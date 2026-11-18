@@ -43,7 +43,7 @@ function ChampionList({
   };
   return (
     <div>
-      <h4 className="text-sm font-medium">{label}</h4>
+      <h3 className="text-sm font-medium">{label}</h3>
       <ol className="mt-1 space-y-1 text-sm">
         {items.map((c, i) => {
           const own = issues.filter((x) => x.champion === c);
@@ -112,7 +112,7 @@ function BranchEditor({ branches, names, onChange }: { branches: Branch[]; names
   const sel = "rounded border border-zinc-300 bg-transparent px-1 py-1 text-sm";
   return (
     <div>
-      <h4 className="text-sm font-medium">If they... we...</h4>
+      <h3 className="text-sm font-medium">If they... we...</h3>
       <ul className="mt-1 space-y-1 text-sm">
         {branches.map((b) => (
           <li key={b.id} className="flex items-center gap-2">

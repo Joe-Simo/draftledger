@@ -5,7 +5,7 @@ export default function Home() {
   const teams = loadTeams();
   const meta = loadMeta();
   return (
-    <main className="mx-auto w-full max-w-4xl px-6 py-10">
+    <main id="main" tabIndex={-1} className="mx-auto w-full max-w-4xl px-6 py-10">
       <h1 className="text-3xl font-semibold tracking-tight">DraftLedger</h1>
       <p className="mt-2 text-zinc-600 dark:text-zinc-400">
         Fearless Draft prep for League of Legends coaching staffs. Pick an opponent to see what they repeat, with sample

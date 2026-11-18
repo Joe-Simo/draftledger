@@ -38,3 +38,49 @@ body {
     padding: 0 !important;
   }
 }
+
+/* Keyboard focus is always visible. */
+:focus-visible {
+  outline: 2px solid #1d4ed8;
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 0.5rem;
+  top: -4rem;
+  z-index: 50;
+  background: #111;
+  color: #fff;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+}
+.skip-link:focus {
+  top: 0.5rem;
+}
+
+/* Dark mode: the page background follows the system theme, so text colors that only work on white get
+   lighter equivalents. Elements that carry their own light background (badges, alerts) are left alone. */
+@media (prefers-color-scheme: dark) {
+  :focus-visible {
+    outline-color: #93c5fd;
+  }
+  .text-zinc-500:not([class*="bg-"]),
+  .text-zinc-600:not([class*="bg-"]) {
+    color: #a1a1aa;
+  }
+  .text-blue-700:not([class*="bg-"]) {
+    color: #93c5fd;
+  }
+  .text-red-700:not([class*="bg-"]),
+  .text-red-800:not([class*="bg-"]) {
+    color: #fca5a5;
+  }
+  .text-emerald-700:not([class*="bg-"]),
+  .text-emerald-800:not([class*="bg-"]) {
+    color: #6ee7b7;
+  }
+  .text-amber-800:not([class*="bg-"]) {
+    color: #fcd34d;
+  }
+}

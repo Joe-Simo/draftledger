@@ -1,0 +1,84 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/AI_SHOWCASE.md",
+      "line": 7,
+      "offset": 271,
+      "length": 5,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/AI_SHOWCASE.md"
+      },
+      "highlighted_element": "art).",
+      "language": "Markdown",
+      "description": "Long sentences (44 words here) are harder to read, according to the research; consider splitting"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/AI_SHOWCASE.md",
+      "line": 27,
+      "offset": 424,
+      "length": 7,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/AI_SHOWCASE.md"
+      },
+      "highlighted_element": "counts.",
+      "language": "Markdown",
+      "description": "Long sentences (44 words here) are harder to read, according to the research; consider splitting"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/METHODOLOGY.md",
+      "line": 37,
+      "offset": 246,
+      "length": 5,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/METHODOLOGY.md"
+      },
+      "highlighted_element": "bans.",
+      "language": "Markdown",
+      "description": "Long sentences (44 words here) are harder to read, according to the research; consider splitting"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/METHODOLOGY.md",
+      "line": 58,
+      "offset": 280,
+      "length": 6,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Style",
+        "id": "GrazieStyle",
+        "severity": "STYLE_SUGGESTION",
+        "attribute_key": "TEXT_STYLE_SUGGESTION"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/METHODOLOGY.md"
+      },
+      "highlighted_element": "games.",
+      "language": "Markdown",
+      "description": "Long sentences (46 words here) are harder to read, according to the research; consider splitting"
+    }
+  ]
+}

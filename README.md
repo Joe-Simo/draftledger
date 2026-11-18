@@ -40,6 +40,24 @@ npm run check:no-data    # fails if licensed data is tracked
 npm run build            # static export into out/
 ```
 
+## Documentation
+
+- `METHODOLOGY.md`: data, role inference and its limits, Fearless detection, confidence thresholds and intervals.
+- `AI_SHOWCASE.md`: how the agents built it, the IntelliJ IDEA loop, the QA loop.
+- `docs/accessibility.md`: keyboard shortcuts, axe results, manual checklist.
+- `docs/demo-script.md`: demo video script.
+- `docs/data-notes.md`: GRID data audit facts.
+
+## Deploy to GitHub Pages
+
+`.github/workflows/pages.yml` runs the checks and builds the static export with `NEXT_PUBLIC_BASE_PATH`
+(default `/<repo name>`, override with the repository variable `PAGES_BASE_PATH`, empty for a custom domain).
+It is prepared only; nothing is pushed or published yet. Local build with a base path:
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/draftledger npm run build
+```
+
 ## Built with JetBrains
 
 IntelliJ IDEA's command-line inspector is run over `src/` with the committed

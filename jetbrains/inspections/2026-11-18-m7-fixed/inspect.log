@@ -1,0 +1,141 @@
+Starting up IntelliJ IDEA 2026.3 (build IU-263.7307.200)…done.
+Opening project…
+done.
+Initializing project…Loaded the 'Project Default' profile from the file '$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml'
+done.
+Inspecting with the 'Project Default' profile
+
+Detected 0 package.json files under the project to install dependencies
+Scanning scope…
+Processing project usages in …/.idea/.gitignore
+Processing project usages in …/.idea/draftledger.iml
+Processing project usages in …/.gitignore
+Processing project usages in …/scripts/aggregate.ts
+Processing project usages in …/eslint.config.mjs
+Processing project usages in …/tsconfig.tsbuildinfo
+Processing project usages in …/src/lib/insights.ts
+Processing project usages in …/src/lib/fearless.ts
+Processing project usages in …/src/lib/types.ts
+Processing project usages in …/tests/ingest.test.ts
+Processing project usages in …/src/lib/data.ts
+Processing project usages in …/src/lib/aggregate.ts
+Processing project usages in …/src/lib/board.ts
+Processing project usages in …/src/lib/legal.ts
+Processing project usages in …/src/lib/forecast.ts
+Processing project usages in …/tests/a11y.test.ts
+Processing project usages in …/src/lib/champions.ts
+Processing project usages in …/.github/workflows/pages.yml
+Processing project usages in …/src/app/page.tsx
+Processing project usages in …/src/app/board/PlanPanel.tsx
+Processing project usages in …/src/lib/shortcuts.ts
+Processing project usages in …/src/app/team/[id]/page.tsx
+Processing project usages in …/src/app/favicon.ico
+Processing project usages in …/src/app/layout.tsx
+Processing project usages in …/.idea/vcs.xml
+Processing project usages in …/src/lib/suggest.ts
+Processing project usages in …/src/app/globals.css
+Processing project usages in …/src/app/board/ScoutingPanels.tsx
+Processing project usages in …/src/lib/csv.ts
+Processing project usages in …/src/app/board/page.tsx
+Processing project usages in …/LICENSE
+Processing project usages in …/src/lib/prep.ts
+Processing project usages in …/src/app/board/BoardClient.tsx
+Processing project usages in …/src/app/SiteFooter.tsx
+Processing project usages in …/vitest.config.ts
+Processing project usages in …/src/lib/ingest.ts
+Processing project usages in …/AGENTS.md
+Processing project usages in …/METHODOLOGY.md
+Processing project usages in …/.idea/workspace.xml
+Processing project usages in …/tests/fearless.test.ts
+Processing project usages in …/tests/board-context.test.ts
+Processing project usages in …/docs/demo-script.md
+Processing project usages in …/docs/data-notes.md
+Processing project usages in …/src/lib/roles.ts
+Processing project usages in …/scripts/audit.ts
+Processing project usages in …/README.md
+Processing project usages in …/.idea/misc.xml
+Processing project usages in …/AI_SHOWCASE.md
+Processing project usages in …/src/lib/plan.ts
+Processing project usages in …/next.config.ts
+Processing project usages in …/.idea/modules.xml
+Processing project usages in …/tests/fixtures.ts
+Processing project usages in …/public/data/meta.json
+Processing project usages in …/tests/suggest.test.ts
+Processing project usages in …/tsconfig.json
+Processing project usages in …/tests/board.test.ts
+Processing project usages in …/tests/roles.test.ts
+Processing project usages in …/.server.log
+Processing project usages in …/.idea/inspectionProfiles/profiles_settings.xml
+Processing project usages in …/tests/champions.test.ts
+Processing project usages in …/tests/aggregate.test.ts
+Processing project usages in …/scripts/check-no-data.sh
+Processing project usages in …/scripts/build-records.ts
+Processing project usages in …/package.json
+Processing project usages in …/public/data/teams.json
+Processing project usages in …/.idea/inspectionProfiles/Project_Default.xml
+Processing project usages in …/tests/plan.test.ts
+Processing project usages in …/public/data/champions.json
+Processing project usages in …/docs/accessibility.md
+Analyzing code in …/LICENSE
+Analyzing code in …/tsconfig.tsbuildinfo
+Analyzing code in …/eslint.config.mjs
+Analyzing code in …/.gitignore
+Analyzing code in …/src/lib/data.ts
+Analyzing code in …/src/lib/legal.ts
+Analyzing code in …/README.md
+Analyzing code in …/scripts/aggregate.ts
+Analyzing code in …/AI_SHOWCASE.md
+Analyzing code in …/src/lib/types.ts
+Analyzing code in …/tests/ingest.test.ts
+Analyzing code in …/src/lib/forecast.ts
+Analyzing code in …/.github/workflows/pages.yml
+Analyzing code in …/src/app/board/page.tsx
+Analyzing code in …/src/lib/board.ts
+Analyzing code in …/src/lib/fearless.ts
+Analyzing code in …/src/lib/champions.ts
+Analyzing code in …/src/lib/insights.ts
+Analyzing code in …/src/lib/aggregate.ts
+Analyzing code in …/docs/accessibility.md
+Analyzing code in …/src/lib/shortcuts.ts
+Analyzing code in …/src/app/page.tsx
+Analyzing code in …/src/app/SiteFooter.tsx
+Analyzing code in …/src/app/layout.tsx
+Analyzing code in …/tests/a11y.test.ts
+Analyzing code in …/AGENTS.md
+Analyzing code in …/METHODOLOGY.md
+Analyzing code in …/src/app/team/[id]/page.tsx
+Analyzing code in …/src/app/globals.css
+Analyzing code in …/src/lib/csv.ts
+Analyzing code in …/src/lib/prep.ts
+Analyzing code in …/docs/demo-script.md
+Analyzing code in …/tests/fearless.test.ts
+Analyzing code in …/vitest.config.ts
+Analyzing code in …/docs/data-notes.md
+Analyzing code in …/src/app/board/ScoutingPanels.tsx
+Analyzing code in …/src/app/board/PlanPanel.tsx
+Analyzing code in …/src/lib/roles.ts
+Analyzing code in …/src/lib/ingest.ts
+Analyzing code in …/public/data/meta.json
+Analyzing code in …/next.config.ts
+Analyzing code in …/src/lib/suggest.ts
+Analyzing code in …/tests/fixtures.ts
+Analyzing code in …/src/lib/plan.ts
+Analyzing code in …/scripts/check-no-data.sh
+Analyzing code in …/tests/champions.test.ts
+Analyzing code in …/tsconfig.json
+Analyzing code in …/tests/board-context.test.ts
+Analyzing code in …/scripts/audit.ts
+Analyzing code in …/.server.log
+Analyzing code in …/package.json
+Analyzing code in …/scripts/build-records.ts
+Analyzing code in …/tests/roles.test.ts
+Analyzing code in …/public/data/champions.json
+Analyzing code in …/tests/aggregate.test.ts
+Analyzing code in …/src/app/board/BoardClient.tsx
+Analyzing code in …/tests/suggest.test.ts
+Analyzing code in …/tests/plan.test.ts
+Analyzing code in …/tests/board.test.ts
+Analyzing code in …/public/data/teams.json
+
+Done.
+

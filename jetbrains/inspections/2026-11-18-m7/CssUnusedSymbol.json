@@ -1,0 +1,88 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/src/app/globals.css",
+      "line": 68,
+      "offset": 2,
+      "length": 14,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unused selector",
+        "id": "CssUnusedSymbol",
+        "severity": "WARNING",
+        "attribute_key": "NOT_USED_ELEMENT_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/src/app/globals.css"
+      },
+      "hints": [],
+      "highlighted_element": ".text-zinc-500",
+      "language": "CSS",
+      "description": "Selector text-zinc-500 is never used"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/src/app/globals.css",
+      "line": 69,
+      "offset": 2,
+      "length": 14,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unused selector",
+        "id": "CssUnusedSymbol",
+        "severity": "WARNING",
+        "attribute_key": "NOT_USED_ELEMENT_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/src/app/globals.css"
+      },
+      "hints": [],
+      "highlighted_element": ".text-zinc-600",
+      "language": "CSS",
+      "description": "Selector text-zinc-600 is never used"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/src/app/globals.css",
+      "line": 79,
+      "offset": 2,
+      "length": 17,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unused selector",
+        "id": "CssUnusedSymbol",
+        "severity": "WARNING",
+        "attribute_key": "NOT_USED_ELEMENT_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/src/app/globals.css"
+      },
+      "hints": [],
+      "highlighted_element": ".text-emerald-700",
+      "language": "CSS",
+      "description": "Selector text-emerald-700 is never used"
+    },
+    {
+      "file": "file://$PROJECT_DIR$/src/app/globals.css",
+      "line": 80,
+      "offset": 2,
+      "length": 17,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Unused selector",
+        "id": "CssUnusedSymbol",
+        "severity": "WARNING",
+        "attribute_key": "NOT_USED_ELEMENT_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/src/app/globals.css"
+      },
+      "hints": [],
+      "highlighted_element": ".text-emerald-800",
+      "language": "CSS",
+      "description": "Selector text-emerald-800 is never used"
+    }
+  ]
+}

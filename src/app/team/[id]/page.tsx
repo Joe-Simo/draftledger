@@ -47,7 +47,7 @@ export default async function TeamPage({ params }: PageProps<"/team/[id]">) {
   const g2 = f?.byGame["2"];
   const g3 = f?.byGame["3+"];
   return (
-    <main className="mx-auto w-full max-w-4xl px-6 py-10">
+    <main id="main" tabIndex={-1} className="mx-auto w-full max-w-4xl px-6 py-10">
       <Link href="/" className="text-sm text-zinc-500 hover:underline">
         All teams
       </Link>

@@ -165,7 +165,7 @@ export function PrepSheetPanel({ sheet, onRefresh }: { sheet: PrepSheet; onRefre
         {o.name}: {o.games} games in {o.series} series, win rate {pctText(o.wins / o.games)}. Bo{sheet.config.format},{" "}
         {sheet.config.fearless ? "Fearless" : "standard draft"}. Generated {sheet.generated}.
       </p>
-      <h3 className="mt-3 font-medium">How to win (for game {sheet.insights.gameNumber})</h3>
+      <h2 className="mt-3 font-medium">How to win (for game {sheet.insights.gameNumber})</h2>
       <ul className="list-disc pl-5 text-sm">
         {sheet.insights.insights.length === 0 ? <li>No claim has enough data behind it.</li> : null}
         {sheet.insights.insights.map((i) => (
@@ -181,7 +181,7 @@ export function PrepSheetPanel({ sheet, onRefresh }: { sheet: PrepSheet; onRefre
       ) : null}
       <div className="mt-3 grid gap-4 md:grid-cols-2">
         <div>
-          <h3 className="font-medium">Most picked</h3>
+          <h2 className="font-medium">Most picked</h2>
           <table className="w-full text-left text-sm">
             <tbody>
               {o.picks.slice(0, 10).map((p) => (
@@ -195,7 +195,7 @@ export function PrepSheetPanel({ sheet, onRefresh }: { sheet: PrepSheet; onRefre
           </table>
         </div>
         <div>
-          <h3 className="font-medium">Most banned by them</h3>
+          <h2 className="font-medium">Most banned by them</h2>
           <table className="w-full text-left text-sm">
             <tbody>
               {o.bans.slice(0, 10).map((b) => (
@@ -211,7 +211,7 @@ export function PrepSheetPanel({ sheet, onRefresh }: { sheet: PrepSheet; onRefre
       </div>
       {sheet.outlook ? (
         <div className="mt-3 text-sm">
-          <h3 className="font-medium">Expect in game {sheet.outlook.gameNumber}</h3>
+          <h2 className="font-medium">Expect in game {sheet.outlook.gameNumber}</h2>
           <p>
             Locked: {sheet.outlook.burned.map((b) => b.champion).join(", ") || "none"}.{" "}
             {sheet.outlook.byRole.map((r) => `${r.role}: ${r.likely.map((l) => l.champion).join("/") || "unknown"}`).join("; ")}
@@ -220,7 +220,7 @@ export function PrepSheetPanel({ sheet, onRefresh }: { sheet: PrepSheet; onRefre
       ) : null}
       {sheet.drafts.map((d) => (
         <div key={d.game} className="mt-3 text-sm">
-          <h3 className="font-medium">Game {d.game}: {d.blue} (blue) vs {d.red} (red){d.winner ? `, won by ${d.winner}` : ""}</h3>
+          <h2 className="font-medium">Game {d.game}: {d.blue} (blue) vs {d.red} (red){d.winner ? `, won by ${d.winner}` : ""}</h2>
           <p>Bans: {d.bans.join("; ") || "none"}</p>
           <p>Picks: {d.picks.join("; ") || "none"}</p>
         </div>

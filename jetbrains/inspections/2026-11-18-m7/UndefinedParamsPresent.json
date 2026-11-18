@@ -1,0 +1,64 @@
+{
+  "problems": [
+    {
+      "file": "file://$PROJECT_DIR$/.github/workflows/pages.yml",
+      "line": 26,
+      "offset": 10,
+      "length": 16,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Undefined parameters",
+        "id": "UndefinedParamsPresent",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/.github/workflows/pages.yml"
+      },
+      "highlighted_element": "node-version: 24",
+      "language": "yaml",
+      "description": "Undefined parameter: \"node-version\""
+    },
+    {
+      "file": "file://$PROJECT_DIR$/.github/workflows/pages.yml",
+      "line": 27,
+      "offset": 10,
+      "length": 10,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Undefined parameters",
+        "id": "UndefinedParamsPresent",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/.github/workflows/pages.yml"
+      },
+      "highlighted_element": "cache: npm",
+      "language": "yaml",
+      "description": "Undefined parameter: \"cache\""
+    },
+    {
+      "file": "file://$PROJECT_DIR$/.github/workflows/pages.yml",
+      "line": 42,
+      "offset": 10,
+      "length": 9,
+      "module": "draftledger",
+      "problem_class": {
+        "name": "Undefined parameters",
+        "id": "UndefinedParamsPresent",
+        "severity": "WARNING",
+        "attribute_key": "WARNING_ATTRIBUTES"
+      },
+      "entry_point": {
+        "TYPE": "file",
+        "FQNAME": "file://$PROJECT_DIR$/.github/workflows/pages.yml"
+      },
+      "highlighted_element": "path: out",
+      "language": "yaml",
+      "description": "Undefined parameter: \"path\""
+    }
+  ]
+}

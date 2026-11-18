@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { TeamAggregate } from "@/lib/aggregate";
 import {
   DRAFT_ORDER,
@@ -30,6 +30,7 @@ import { buildForecast } from "@/lib/forecast";
 import { buildInsights, insightContext } from "@/lib/insights";
 import { emptyPlans, normalizePlans, ourTeam, planSuggestion, type GamePlan } from "@/lib/plan";
 import { buildPrepSheet } from "@/lib/prep";
+import { SHORTCUTS, shortcutFor } from "@/lib/shortcuts";
 import { applyScoutSetup, nextGameOutlook, suggestForStep } from "@/lib/suggest";
 import { ROLES, type Role } from "@/lib/types";
 import { PlanPanel } from "./PlanPanel";
@@ -37,6 +38,8 @@ import { InsightsPanel, OutlookPanel, PrepSheetPanel, SuggestionsPanel } from ".
 
 const STORAGE_KEY = "draftledger.board.v1";
 const PLANS_KEY = "draftledger.plans.v1";
+/** Set at build time for GitHub Pages project sites; plain fetch calls are not prefixed by Next.js. */
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 const TEAMS: TeamKey[] = ["A", "B"];
 
 const badge: Record<RolePool["status"], string> = {
@@ -57,6 +60,8 @@ export function BoardClient() {
   const [role, setRole] = useState<Role | "auto">("auto");
   const [showSetup, setShowSetup] = useState(true);
   const [showAll, setShowAll] = useState(false);
+  const [announce, setAnnounce] = useState("");
+  const searchRef = useRef<HTMLInputElement>(null);
   const [plans, setPlans] = useState<GamePlan[]>(() => emptyPlans());
   const [generated, setGenerated] = useState(() => new Date().toISOString().slice(0, 10));
 
@@ -80,11 +85,11 @@ export function BoardClient() {
     }
     setReady(true);
     /* eslint-enable react-hooks/set-state-in-effect */
-    fetch("/data/champions.json")
+    fetch(`${BASE_PATH}/data/champions.json`)
       .then((r) => r.json())
       .then((d: { champions: ChampionInfo[] }) => setChampions(d.champions))
       .catch(() => undefined);
-    fetch("/data/teams.json")
+    fetch(`${BASE_PATH}/data/teams.json`)
       .then((r) => r.json())
       .then((d: { teams: TeamAggregate[] }) => setTeams(d.teams))
       .catch(() => undefined);
@@ -150,17 +155,61 @@ export function BoardClient() {
 
   function choose(name: string) {
     if (!view.next) return;
-    if (view.next.kind === "ban") dispatch({ type: "event", event: { t: "ban", champion: name } });
-    else {
+    if (view.next.kind === "ban") {
+      dispatch({ type: "event", event: { t: "ban", champion: name } });
+      setAnnounce(`${names(view.next.team)} banned ${name}`);
+    } else {
       const team = view.next.team;
       const poolRoles = ROLES.filter((x) => state.config.teams[team].pool[x].includes(name));
       const r = resolvePickRole(role, info.get(name), filled(team), poolRoles);
       if (!r) return setError("All five roles are filled for this team.");
       dispatch({ type: "event", event: { t: "pick", champion: name, role: r } });
+      setAnnounce(`${names(team)} picked ${name} as ${r}`);
     }
     setQuery("");
     setRole("auto");
+    setTimeout(() => searchRef.current?.focus(), 0);
   }
+
+  function skipBan() {
+    if (view.next?.kind !== "ban") return;
+    dispatch({ type: "event", event: { t: "ban", champion: null } });
+    setAnnounce(`${names(view.next.team)} skipped the ban`);
+    setTimeout(() => searchRef.current?.focus(), 0);
+  }
+
+  function undo() {
+    dispatch({ type: "undo" });
+    setAnnounce("Undid the last draft event");
+  }
+
+  function redo() {
+    dispatch({ type: "redo" });
+    setAnnounce("Redid the draft event");
+  }
+
+  // Keyboard shortcuts, documented in the "Keyboard shortcuts" panel. Handlers read the latest state on every render.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      const el = e.target as HTMLElement | null;
+      const typing = !!el && (el.tagName === "INPUT" || el.tagName === "TEXTAREA" || el.tagName === "SELECT" || el.isContentEditable);
+      const action = shortcutFor(e, typing);
+      if (!action) return;
+      if (action === "clear-search") {
+        if (typing && el !== searchRef.current) return;
+        setQuery("");
+        return;
+      }
+      e.preventDefault();
+      if (action === "focus-search") searchRef.current?.focus();
+      else if (action === "undo" && state.log.length) undo();
+      else if (action === "redo" && state.redo.length) redo();
+      else if (action === "take-plan" && planNow?.champion) choose(planNow.champion);
+      else if (action === "skip-ban") skipBan();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
 
   function applySetup() {
     dispatch({ type: "configure", config: applyScoutSetup(config, teams) });
@@ -214,7 +263,7 @@ export function BoardClient() {
   }
 
   return (
-    <main className="mx-auto w-full max-w-6xl px-6 py-8">
+    <main id="main" tabIndex={-1} className="mx-auto w-full max-w-6xl px-6 py-8">
       <div className="no-print flex items-baseline justify-between">
         <h1 className="text-2xl font-semibold tracking-tight">Series board</h1>
         <Link href="/" className="text-sm text-zinc-500 hover:underline">
@@ -225,11 +274,38 @@ export function BoardClient() {
         Standard LoL draft, Fearless lock across games, per-role pools. Saved in this browser only.
       </p>
 
-      <section className="no-print mt-4 rounded border border-zinc-300 p-4 dark:border-zinc-700">
+      <p className="sr-only" role="status" aria-live="polite" aria-atomic="true">
+        {announce}
+      </p>
+      <details className="no-print mt-3 text-sm">
+        <summary className="cursor-pointer font-medium">Keyboard shortcuts</summary>
+        <table className="mt-2 text-left">
+          <caption className="sr-only">Keyboard shortcuts of the series board</caption>
+          <tbody>
+            {SHORTCUTS.map((s) => (
+              <tr key={s.keys}>
+                <th scope="row" className="pr-4 font-mono text-xs font-normal">
+                  {s.keys}
+                </th>
+                <td className="py-0.5">{s.does}</td>
+              </tr>
+            ))}
+            <tr>
+              <th scope="row" className="pr-4 font-mono text-xs font-normal">
+                Tab and Shift+Tab
+              </th>
+              <td className="py-0.5">Move between controls in reading order: setup, draft step, plan, pools, prep sheet.</td>
+            </tr>
+          </tbody>
+        </table>
+      </details>
+
+      <section className="no-print mt-4 rounded border border-zinc-300 p-4 dark:border-zinc-700" aria-label="Series setup">
         <div className="flex flex-wrap items-center gap-3 text-sm">
           <button
             className="font-medium underline-offset-2 hover:underline"
             aria-expanded={showSetup}
+            aria-controls="setup-body"
             onClick={() => setShowSetup((s) => !s)}
           >
             {showSetup ? "Hide setup" : "Show setup"}
@@ -242,7 +318,7 @@ export function BoardClient() {
           ) : null}
         </div>
         {showSetup ? (
-          <div className="mt-3 space-y-4">
+          <div id="setup-body" className="mt-3 space-y-4">
             <div className="flex flex-wrap items-end gap-4 text-sm">
               <label>
                 Format
@@ -377,9 +453,9 @@ export function BoardClient() {
         ) : null}
       </section>
 
-      <section className="no-print mt-6">
+      <section className="no-print mt-6" aria-labelledby="draft-heading">
         <div className="flex flex-wrap items-center gap-3">
-          <h2 className="text-lg font-semibold">
+          <h2 id="draft-heading" className="text-lg font-semibold">
             {names("A")} {view.score.A} : {view.score.B} {names("B")}
           </h2>
           <span className="text-sm text-zinc-500">
@@ -394,10 +470,10 @@ export function BoardClient() {
             </span>
           ) : null}
           <div className="ml-auto flex gap-2 text-sm">
-            <button className="rounded border border-zinc-300 px-2 py-1 disabled:opacity-40" disabled={state.log.length === 0} onClick={() => dispatch({ type: "undo" })}>
+            <button className="rounded border border-zinc-300 px-2 py-1 disabled:opacity-40" disabled={state.log.length === 0} aria-keyshortcuts="Control+Z" onClick={undo}>
               Undo
             </button>
-            <button className="rounded border border-zinc-300 px-2 py-1 disabled:opacity-40" disabled={state.redo.length === 0} onClick={() => dispatch({ type: "redo" })}>
+            <button className="rounded border border-zinc-300 px-2 py-1 disabled:opacity-40" disabled={state.redo.length === 0} aria-keyshortcuts="Control+Shift+Z" onClick={redo}>
               Redo
             </button>
           </div>
@@ -433,11 +509,11 @@ export function BoardClient() {
             <DraftStrip view={view} names={names} />
 
             {planNow ? (
-              <div className="flex flex-wrap items-center gap-2 rounded border border-sky-300 bg-sky-50 px-3 py-2 text-sm text-sky-950" aria-label="Plan says">
+              <div role="group" className="flex flex-wrap items-center gap-2 rounded border border-sky-300 bg-sky-50 px-3 py-2 text-sm text-sky-950" aria-label="Plan says">
                 <strong>Your plan says:</strong>
                 {planNow.champion ? (
                   <>
-                    <button className="rounded bg-sky-900 px-2 py-0.5 text-white" onClick={() => choose(planNow.champion!)}>
+                    <button className="rounded bg-sky-900 px-2 py-0.5 text-white" aria-keyshortcuts="Alt+P" onClick={() => choose(planNow.champion!)}>
                       {view.next!.kind} {planNow.champion}
                     </button>
                     <span>{planNow.reason}{planNow.alternatives.length ? `. Then: ${planNow.alternatives.slice(0, 3).join(", ")}` : ""}</span>
@@ -460,11 +536,13 @@ export function BoardClient() {
                 </p>
                 <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
                   <input
+                    ref={searchRef}
                     aria-label="Search champions"
+                    aria-keyshortcuts="/"
                     className="rounded border border-zinc-300 bg-transparent px-2 py-1"
                     placeholder="Search champion, Enter to pick"
                     value={query}
-                    autoFocus
+                    autoComplete="off"
                     onChange={(e) => setQuery(e.target.value)}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && q) choose(firstOpen?.name ?? query.trim());
@@ -483,7 +561,7 @@ export function BoardClient() {
                       </select>
                     </label>
                   ) : (
-                    <button className="rounded border border-zinc-300 px-2 py-1" onClick={() => dispatch({ type: "event", event: { t: "ban", champion: null } })}>
+                    <button className="rounded border border-zinc-300 px-2 py-1" aria-keyshortcuts="Alt+B" onClick={skipBan}>
                       Skip ban
                     </button>
                   )}
@@ -502,6 +580,7 @@ export function BoardClient() {
                           className="flex items-center gap-1 rounded border border-zinc-200 px-1.5 py-0.5 text-left text-xs enabled:hover:bg-zinc-100 disabled:opacity-40 dark:border-zinc-800 dark:enabled:hover:bg-zinc-900"
                           disabled={!!reason}
                           title={reason ?? undefined}
+                          aria-label={reason ? `${c.name}, unavailable: ${reason}` : `${view.next!.kind === "ban" ? "Ban" : "Pick"} ${c.name}`}
                           onClick={() => choose(c.name)}
                         >
                           <span className="inline-flex h-4 w-4 items-center justify-center rounded bg-zinc-200 text-[10px] font-semibold text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">
@@ -513,6 +592,11 @@ export function BoardClient() {
                     );
                   })}
                 </ul>
+                {q && matches.length === 0 && champions.length > 0 ? (
+                  <p className="mt-2 text-xs text-zinc-500" role="status">
+                    No champion matches &ldquo;{query.trim()}&rdquo;. Press Enter to use it as typed, or check the spelling.
+                  </p>
+                ) : null}
                 {!q && !showAll ? (
                   <p className="mt-2 text-xs text-zinc-500">
                     Type a name and press Enter, click a suggestion above, or{" "}
@@ -564,8 +648,8 @@ export function BoardClient() {
         onChange={(i, p) => setPlans((all) => all.map((x, k) => (k === i ? p : x)))}
       />
 
-      <section className="no-print mt-8">
-        <h2 className="text-lg font-semibold">Role pools</h2>
+      <section className="no-print mt-8" aria-labelledby="pools-heading">
+        <h2 id="pools-heading" className="text-lg font-semibold">Role pools</h2>
         <p className="text-sm text-zinc-500">
           Remaining champions per role after Fearless locks. Needed counts the games each role may still have to fill in
           the worst case; thin means fewer than needed plus two spares.

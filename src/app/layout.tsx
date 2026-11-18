@@ -8,9 +8,14 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  // noinspection HtmlUnknownAnchorTarget (the #main target is the <main> element of each page, set in JSX)
   return (
     <html lang="en" className="h-full antialiased">
-      <body className="min-h-full flex flex-col"><div className="flex-1">{children}</div>
+      <body className="min-h-full flex flex-col">
+        <a href="#main" className="skip-link no-print">
+          Skip to main content
+        </a>
+        <div className="flex-1">{children}</div>
         <SiteFooter />
       </body>
     </html>

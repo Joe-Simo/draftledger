@@ -56,3 +56,21 @@ The one CSS error the GUI reported was **not reproduced** headlessly, even with 
 ### 2026-11-18-m6-fixed
 
 Rerun after the fixes: no findings (only `inspect.log`). Markdown and grammar results are cached by the IDE per project, so a rerun straight after editing text files can report stale findings. The clean result was produced after clearing the project's cache folder under the IDE system directory and rerunning; it was repeated on unchanged files.
+
+### 2026-11-18-m7
+
+Headless run after the accessibility pass and the new docs and workflow. 10 findings:
+
+| Inspection | Count | Where | What we did |
+| --- | --- | --- | --- |
+| CssUnusedSymbol | 4 | `src/app/globals.css` (dark-mode Tailwind class overrides) | False positive: the classes are used in the TSX files, which this inspection does not search for Tailwind utilities. The inspection is turned off in the profile for that reason. |
+| GrazieInspection | 1 | `AI_SHOWCASE.md` | Comma added. |
+| GrazieStyle | 1 | `METHODOLOGY.md` | Long sentence split (a few other long sentences were split in the same pass). |
+| HtmlUnknownAnchorTarget | 1 | `src/app/layout.tsx` skip link | The `#main` target is the `<main>` element of each page, set in JSX, which the inspection does not resolve. Suppressed with a comment that says so. |
+| UndefinedParamsPresent | 3 | `.github/workflows/pages.yml` | The IDE cannot see GitHub Action inputs offline. Suppressed on those lines with a comment. |
+
+### 2026-11-18-m7-fixed
+
+Rerun after the fixes: no findings (only `inspect.log`), repeated after clearing the project cache, on unchanged files.
+
+`.next`, `out` and `.derived` have been excluded from the IDE module since the first commit (see `.idea/draftledger.iml`), along with `qa`, `jetbrains` and `node_modules`.
