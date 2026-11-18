@@ -4,8 +4,9 @@ Fearless Draft preparation for League of Legends coaching staffs. Built for the
 Cloud9 x JetBrains "Sky's The Limit" hackathon, Category 2 (LoL): Macro Scouting
 & Draft Management System.
 
-Status: scaffold only. Features, demo link and methodology write-up land here as
-they are built.
+Status: milestone 1. Draft ingestion, Fearless detection, per-team pick and ban
+tendencies and a static team report page. The series board, insights and demo
+link land here as they are built. Data audit: `docs/data-notes.md`.
 
 ## Develop
 
@@ -24,6 +25,17 @@ be committed. Clone it next to this repo and point `STL_DATA_DIR` at it:
 ```bash
 git clone --filter=blob:none --sparse https://github.com/cloud9esports/stl-hackathon-2026-grid-starter.git ../stl-hackathon-2026-grid-starter
 git -C ../stl-hackathon-2026-grid-starter sparse-checkout set lol meta
+```
+
+Pipeline (all code reads the data outside this repo, nothing licensed is committed):
+
+```bash
+export STL_DATA_DIR=../stl-hackathon-2026-grid-starter
+npm run data:records     # draft records into .derived/ (gitignored)
+npm run data:aggregate   # team aggregates into public/data/ (counts only, committed)
+npm run data:audit       # prints the facts used in docs/data-notes.md
+npm run check:no-data    # fails if licensed data is tracked
+npm run build            # static export into out/
 ```
 
 ## Built with JetBrains

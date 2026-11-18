@@ -1,0 +1,257 @@
+{
+ "source": "Official GRID LoL series via the Sky's The Limit 2026 starter repository (aggregates only)",
+ "games": 1735,
+ "series": 743,
+ "fearlessSeries": 568,
+ "fearlessGames": 1560,
+ "teams": 42,
+ "minGamesPerTeam": 8,
+ "stages": [
+  {
+   "stage": "LCK - LCK Cup 2025 | Groups",
+   "multiGameSeries": 25,
+   "zeroReuseSeries": 25,
+   "fearless": true
+  },
+  {
+   "stage": "LCK - LCK Cup 2025 | Play-Ins",
+   "multiGameSeries": 5,
+   "zeroReuseSeries": 5,
+   "fearless": true
+  },
+  {
+   "stage": "LCK - LCK Cup 2025 | Playoffs",
+   "multiGameSeries": 8,
+   "zeroReuseSeries": 8,
+   "fearless": true
+  },
+  {
+   "stage": "LCK - Split 2 2025 | Regular Season",
+   "multiGameSeries": 90,
+   "zeroReuseSeries": 90,
+   "fearless": true
+  },
+  {
+   "stage": "LCK - Split 2 2025 | Road to MSI",
+   "multiGameSeries": 5,
+   "zeroReuseSeries": 5,
+   "fearless": true
+  },
+  {
+   "stage": "LCK - Split 3 2025 | Groups",
+   "multiGameSeries": 60,
+   "zeroReuseSeries": 60,
+   "fearless": true
+  },
+  {
+   "stage": "LCK - Split 3 2025 | Play-Ins",
+   "multiGameSeries": 5,
+   "zeroReuseSeries": 5,
+   "fearless": true
+  },
+  {
+   "stage": "LCK - Split 3 2025 | Playoffs",
+   "multiGameSeries": 10,
+   "zeroReuseSeries": 10,
+   "fearless": true
+  },
+  {
+   "stage": "LCS - Promotion 2026 | Regional Qualifier",
+   "multiGameSeries": 7,
+   "zeroReuseSeries": 7,
+   "fearless": true
+  },
+  {
+   "stage": "LCS - Split 1 2026 | Playoffs",
+   "multiGameSeries": 8,
+   "zeroReuseSeries": 8,
+   "fearless": true
+  },
+  {
+   "stage": "LCS - Split 1 2026 | Swiss",
+   "multiGameSeries": 11,
+   "zeroReuseSeries": 11,
+   "fearless": true
+  },
+  {
+   "stage": "LCS - Split 2 2026 | Playoffs",
+   "multiGameSeries": 8,
+   "zeroReuseSeries": 8,
+   "fearless": true
+  },
+  {
+   "stage": "LCS - Split 2 2026 | Regular Season",
+   "multiGameSeries": 28,
+   "zeroReuseSeries": 28,
+   "fearless": true
+  },
+  {
+   "stage": "LCS - Split 3 2026 | Playoffs",
+   "multiGameSeries": 4,
+   "zeroReuseSeries": 4,
+   "fearless": true
+  },
+  {
+   "stage": "LCS - Split 3 2026 | Regular Season",
+   "multiGameSeries": 7,
+   "zeroReuseSeries": 7,
+   "fearless": true
+  },
+  {
+   "stage": "LEC - LEC Versus 2026 | Playoffs",
+   "multiGameSeries": 12,
+   "zeroReuseSeries": 12,
+   "fearless": true
+  },
+  {
+   "stage": "LEC - LEC Versus 2026 | Regular Season",
+   "multiGameSeries": 0,
+   "zeroReuseSeries": 0,
+   "fearless": false
+  },
+  {
+   "stage": "LEC - Spring 2025 | Playoffs",
+   "multiGameSeries": 8,
+   "zeroReuseSeries": 8,
+   "fearless": true
+  },
+  {
+   "stage": "LEC - Spring 2025 | Regular Season",
+   "multiGameSeries": 45,
+   "zeroReuseSeries": 45,
+   "fearless": true
+  },
+  {
+   "stage": "LEC - Spring 2026 | Playoffs",
+   "multiGameSeries": 8,
+   "zeroReuseSeries": 8,
+   "fearless": true
+  },
+  {
+   "stage": "LEC - Spring 2026 | Regular Season",
+   "multiGameSeries": 45,
+   "zeroReuseSeries": 45,
+   "fearless": true
+  },
+  {
+   "stage": "LEC - Summer 2025 | Groups",
+   "multiGameSeries": 20,
+   "zeroReuseSeries": 20,
+   "fearless": true
+  },
+  {
+   "stage": "LEC - Summer 2025 | Playoffs",
+   "multiGameSeries": 10,
+   "zeroReuseSeries": 10,
+   "fearless": true
+  },
+  {
+   "stage": "LEC - Winter 2025 | Playoffs",
+   "multiGameSeries": 14,
+   "zeroReuseSeries": 14,
+   "fearless": true
+  },
+  {
+   "stage": "LEC - Winter 2025 | Regular Season",
+   "multiGameSeries": 0,
+   "zeroReuseSeries": 0,
+   "fearless": false
+  },
+  {
+   "stage": "LTA Cross-Conference - Regional Championship 2025 | Regional Finals",
+   "multiGameSeries": 6,
+   "zeroReuseSeries": 6,
+   "fearless": true
+  },
+  {
+   "stage": "LTA Cross-Conference - Split 1 2025 | Regional Finals",
+   "multiGameSeries": 7,
+   "zeroReuseSeries": 7,
+   "fearless": true
+  },
+  {
+   "stage": "LTA North - Split 1 2025 | Regional Qualifier",
+   "multiGameSeries": 10,
+   "zeroReuseSeries": 10,
+   "fearless": true
+  },
+  {
+   "stage": "LTA North - Split 2 2025 | Playoffs",
+   "multiGameSeries": 8,
+   "zeroReuseSeries": 8,
+   "fearless": true
+  },
+  {
+   "stage": "LTA North - Split 2 2025 | Round 1",
+   "multiGameSeries": 0,
+   "zeroReuseSeries": 0,
+   "fearless": false
+  },
+  {
+   "stage": "LTA North - Split 2 2025 | Round 2",
+   "multiGameSeries": 12,
+   "zeroReuseSeries": 12,
+   "fearless": true
+  },
+  {
+   "stage": "LTA North - Split 2 2025 | Round 3",
+   "multiGameSeries": 4,
+   "zeroReuseSeries": 4,
+   "fearless": true
+  },
+  {
+   "stage": "LTA North - Split 3 2025 | Round 1",
+   "multiGameSeries": 12,
+   "zeroReuseSeries": 12,
+   "fearless": true
+  },
+  {
+   "stage": "LTA North - Split 3 2025 | Round 2",
+   "multiGameSeries": 10,
+   "zeroReuseSeries": 10,
+   "fearless": true
+  },
+  {
+   "stage": "LTA South - Split 1 2025 | Regional Qualifier",
+   "multiGameSeries": 10,
+   "zeroReuseSeries": 10,
+   "fearless": true
+  },
+  {
+   "stage": "LTA South - Split 2 2025 | Playoffs",
+   "multiGameSeries": 8,
+   "zeroReuseSeries": 8,
+   "fearless": true
+  },
+  {
+   "stage": "LTA South - Split 2 2025 | Round 1",
+   "multiGameSeries": 0,
+   "zeroReuseSeries": 0,
+   "fearless": false
+  },
+  {
+   "stage": "LTA South - Split 2 2025 | Round 2",
+   "multiGameSeries": 12,
+   "zeroReuseSeries": 12,
+   "fearless": true
+  },
+  {
+   "stage": "LTA South - Split 2 2025 | Round 3",
+   "multiGameSeries": 4,
+   "zeroReuseSeries": 4,
+   "fearless": true
+  },
+  {
+   "stage": "LTA South - Split 3 2025 | Round 1",
+   "multiGameSeries": 12,
+   "zeroReuseSeries": 12,
+   "fearless": true
+  },
+  {
+   "stage": "LTA South - Split 3 2025 | Round 2",
+   "multiGameSeries": 10,
+   "zeroReuseSeries": 10,
+   "fearless": true
+  }
+ ]
+}
