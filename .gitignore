@@ -49,3 +49,4 @@ stl-hackathon-2026-grid-starter/
 *.sqlite
 *.duckdb
 .derived/
+.server.log

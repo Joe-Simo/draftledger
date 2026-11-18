@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import type { TeamAggregate } from "@/lib/aggregate";
 import { pctText } from "@/lib/insights";
 import type { PrepSheet } from "@/lib/prep";
@@ -93,7 +94,7 @@ export function OutlookPanel({ data }: { data: NextGameOutlook | null }) {
 export function InsightsPanel({ result, opponent }: { result: InsightResult; opponent: TeamAggregate }) {
   return (
     <section className="no-print" aria-label="How to win">
-      <h2 className="text-lg font-semibold">How to win against {opponent.name}</h2>
+      <h2 className="text-lg font-semibold">How to win against {opponent.name} (game {result.gameNumber})</h2>
       <p className="text-sm text-zinc-500">
         Every point shows its sample size. Under 5 games nothing is claimed, and win-rate claims need the 95% interval to
         clear the comparison.
@@ -113,6 +114,11 @@ export function InsightsPanel({ result, opponent }: { result: InsightResult; opp
           ))}
         </ul>
       )}
+      {result.lockedOut.length ? (
+        <p className="mt-2 text-xs text-zinc-500">
+          Left out because they are already locked or used: {result.lockedOut.join(", ")}.
+        </p>
+      ) : null}
       <p className="mt-2 text-xs text-zinc-500">
         {result.suppressed} candidate point(s) left out for a small sample or an unclear effect.
       </p>
@@ -120,17 +126,19 @@ export function InsightsPanel({ result, opponent }: { result: InsightResult; opp
   );
 }
 
-function download(name: string, text: string, mime: string) {
+function download(name: string, text: string, mime: string): string {
   const url = URL.createObjectURL(new Blob([text], { type: mime }));
   const a = document.createElement("a");
   a.href = url;
   a.download = name;
   a.click();
   URL.revokeObjectURL(url);
+  return name;
 }
 
 export function PrepSheetPanel({ sheet, onRefresh }: { sheet: PrepSheet; onRefresh: () => void }) {
   const o = sheet.opponent;
+  const [saved, setSaved] = useState<string | null>(null);
   const slug = o.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   return (
     <section className="print-sheet mt-8 rounded border border-zinc-300 p-4 dark:border-zinc-700" aria-label="Prep sheet">
@@ -139,19 +147,24 @@ export function PrepSheetPanel({ sheet, onRefresh }: { sheet: PrepSheet; onRefre
         <button className="rounded border border-zinc-300 px-2 py-1 text-sm" onClick={() => { onRefresh(); window.print(); }}>
           Print
         </button>
-        <button className="rounded border border-zinc-300 px-2 py-1 text-sm" onClick={() => { onRefresh(); download(`prep-${slug}.md`, toMarkdown(sheet), "text/markdown"); }}>
+        <button className="rounded border border-zinc-300 px-2 py-1 text-sm" onClick={() => { onRefresh(); setSaved(download(`prep-${slug}.md`, toMarkdown(sheet), "text/markdown")); }}>
           Download Markdown
         </button>
-        <button className="rounded border border-zinc-300 px-2 py-1 text-sm" onClick={() => { onRefresh(); download(`prep-${slug}.csv`, toCsv(sheet), "text/csv"); }}>
+        <button className="rounded border border-zinc-300 px-2 py-1 text-sm" onClick={() => { onRefresh(); setSaved(download(`prep-${slug}.csv`, toCsv(sheet), "text/csv")); }}>
           Download CSV
         </button>
+        {saved ? (
+          <span role="status" className="text-xs text-emerald-700">
+            Saved to your Downloads as {saved}
+          </span>
+        ) : null}
       </div>
       <h1 className="mt-3 text-xl font-semibold">{sheet.title}</h1>
       <p className="text-sm">
         {o.name}: {o.games} games in {o.series} series, win rate {pctText(o.wins / o.games)}. Bo{sheet.config.format},{" "}
         {sheet.config.fearless ? "Fearless" : "standard draft"}. Generated {sheet.generated}.
       </p>
-      <h3 className="mt-3 font-medium">How to win</h3>
+      <h3 className="mt-3 font-medium">How to win (for game {sheet.insights.gameNumber})</h3>
       <ul className="list-disc pl-5 text-sm">
         {sheet.insights.insights.length === 0 ? <li>No claim has enough data behind it.</li> : null}
         {sheet.insights.insights.map((i) => (
@@ -160,6 +173,11 @@ export function PrepSheetPanel({ sheet, onRefresh }: { sheet: PrepSheet; onRefre
           </li>
         ))}
       </ul>
+      {sheet.insights.lockedOut.length ? (
+        <p className="text-xs text-zinc-500">
+          Not advised because they are already locked or used: {sheet.insights.lockedOut.join(", ")}.
+        </p>
+      ) : null}
       <div className="mt-3 grid gap-4 md:grid-cols-2">
         <div>
           <h3 className="font-medium">Most picked</h3>

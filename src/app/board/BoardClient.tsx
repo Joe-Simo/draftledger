@@ -23,12 +23,12 @@ import {
   leaguePools,
   parsePoolText,
   poolsFromTeam,
-  suggestRole,
+  resolvePickRole,
   type ChampionInfo,
 } from "@/lib/champions";
-import { buildInsights } from "@/lib/insights";
+import { buildInsights, insightContext } from "@/lib/insights";
 import { buildPrepSheet } from "@/lib/prep";
-import { nextGameOutlook, suggestForStep } from "@/lib/suggest";
+import { applyScoutSetup, nextGameOutlook, suggestForStep } from "@/lib/suggest";
 import { ROLES, type Role } from "@/lib/types";
 import { InsightsPanel, OutlookPanel, PrepSheetPanel, SuggestionsPanel } from "./ScoutingPanels";
 
@@ -52,6 +52,7 @@ export function BoardClient() {
   const [query, setQuery] = useState("");
   const [role, setRole] = useState<Role | "auto">("auto");
   const [showSetup, setShowSetup] = useState(true);
+  const [showAll, setShowAll] = useState(false);
   const [generated, setGenerated] = useState(() => new Date().toISOString().slice(0, 10));
 
   // Hydrate from localStorage after mount: reading it during render would break static export hydration.
@@ -110,8 +111,8 @@ export function BoardClient() {
     [state.config, view, opponent],
   );
   const insights = useMemo(
-    () => (opponent ? buildInsights(opponent, { maxRemainingGames: view.maxRemainingGames || undefined }) : null),
-    [opponent, view.maxRemainingGames],
+    () => (opponent ? buildInsights(opponent, insightContext(state.config, view)) : null),
+    [opponent, state.config, view],
   );
   const sheet = useMemo(
     () => (opponent && scout ? buildPrepSheet(state.config, state.log, opponent, generated) : null),
@@ -123,22 +124,55 @@ export function BoardClient() {
   const filled = (team: TeamKey): Role[] =>
     (cur?.actions ?? []).filter((a) => a.team === team && a.role).map((a) => a.role as Role);
 
-  const visible = champions.filter((c) => c.name.toLowerCase().includes(query.trim().toLowerCase()));
+  const q = query.trim().toLowerCase();
+  const matches = q ? champions.filter((c) => c.name.toLowerCase().includes(q)) : [];
+  const visible = q ? matches.slice(0, 18) : showAll ? champions : [];
+  const firstOpen = visible.find((c) => !view.next || !unavailableReason(state.config, view, c.name));
 
   function choose(name: string) {
     if (!view.next) return;
     if (view.next.kind === "ban") dispatch({ type: "event", event: { t: "ban", champion: name } });
     else {
-      const r = role === "auto" ? suggestRole(info.get(name), filled(view.next.team)) : role;
+      const team = view.next.team;
+      const poolRoles = ROLES.filter((x) => state.config.teams[team].pool[x].includes(name));
+      const r = resolvePickRole(role, info.get(name), filled(team), poolRoles);
       if (!r) return setError("All five roles are filled for this team.");
       dispatch({ type: "event", event: { t: "pick", champion: name, role: r } });
     }
     setQuery("");
+    setRole("auto");
   }
 
   function applySetup() {
-    dispatch({ type: "configure", config });
+    dispatch({ type: "configure", config: applyScoutSetup(config, teams) });
+    setConfig((c) => applyScoutSetup(c, teams));
     setShowSetup(false);
+  }
+
+  function applyScoutOnly() {
+    const next = applyScoutSetup(config, teams);
+    setConfig(next);
+    dispatch({ type: "scout", scout: next.scout, teams: next.teams });
+    setShowSetup(false);
+  }
+
+  /** Change who is scouted, which side they play and who we are; names and pools follow. */
+  function updateScout(patch: { opponentId?: string; opponent?: TeamKey; ownId?: string | undefined }, swapSides = false) {
+    setConfig((c) => {
+      let base = c;
+      if (swapSides) {
+        base = { ...c, teams: { A: c.teams.B, B: c.teams.A }, firstBlue: c.firstBlue === "A" ? "B" : "A" };
+      }
+      const prev = base.scout;
+      const opponentId = "opponentId" in patch ? patch.opponentId : prev?.opponentId;
+      if (!opponentId) return { ...base, scout: undefined };
+      const scout = {
+        opponent: patch.opponent ?? prev?.opponent ?? "B",
+        opponentId,
+        ownId: "ownId" in patch ? patch.ownId : prev?.ownId,
+      };
+      return applyScoutSetup({ ...base, scout }, teams);
+    });
   }
 
   function setPool(team: TeamKey, r: Role, text: string) {
@@ -173,9 +207,21 @@ export function BoardClient() {
       </p>
 
       <section className="no-print mt-4 rounded border border-zinc-300 p-4 dark:border-zinc-700">
-        <button className="text-sm font-medium underline-offset-2 hover:underline" onClick={() => setShowSetup((s) => !s)}>
-          {showSetup ? "Hide setup" : "Show setup"}
-        </button>
+        <div className="flex flex-wrap items-center gap-3 text-sm">
+          <button
+            className="font-medium underline-offset-2 hover:underline"
+            aria-expanded={showSetup}
+            onClick={() => setShowSetup((s) => !s)}
+          >
+            {showSetup ? "Hide setup" : "Show setup"}
+          </button>
+          {!showSetup ? (
+            <span className="text-zinc-500">
+              Bo{state.config.format}, {state.config.fearless ? "Fearless" : "standard"}, {names("A")} vs {names("B")}
+              {opponent ? `, scouting ${opponent.name}` : ""}
+            </span>
+          ) : null}
+        </div>
         {showSetup ? (
           <div className="mt-3 space-y-4">
             <div className="flex flex-wrap items-end gap-4 text-sm">
@@ -258,15 +304,7 @@ export function BoardClient() {
                   aria-label="Scouted opponent"
                   className="ml-2 rounded border border-zinc-300 bg-transparent px-2 py-1"
                   value={config.scout?.opponentId ?? ""}
-                  onChange={(e) => {
-                    const opponentId = e.target.value;
-                    setConfig((c) => ({ ...c, scout: opponentId ? { opponent: c.scout?.opponent ?? "B", opponentId, ownId: c.scout?.ownId } : undefined }));
-                    if (opponentId) {
-                      const t = teams.find((x) => x.teamId === opponentId);
-                      const key = config.scout?.opponent ?? "B";
-                      if (t) setConfig((c) => ({ ...c, teams: { ...c.teams, [key]: { ...c.teams[key], name: t.name, pool: poolsFromTeam(t, 2) } } }));
-                    }
-                  }}
+                  onChange={(e) => updateScout({ opponentId: e.target.value || undefined })}
                 >
                   <option value="">None</option>
                   {teams.map((x) => (
@@ -282,7 +320,7 @@ export function BoardClient() {
                   aria-label="Scouted side of the board"
                   className="ml-2 rounded border border-zinc-300 bg-transparent px-2 py-1"
                   value={config.scout?.opponent ?? "B"}
-                  onChange={(e) => setConfig((c) => (c.scout ? { ...c, scout: { ...c.scout, opponent: e.target.value as TeamKey } } : c))}
+                  onChange={(e) => updateScout({ opponent: e.target.value as TeamKey }, !!config.scout && e.target.value !== config.scout.opponent)}
                 >
                   <option value="A">Team A</option>
                   <option value="B">Team B</option>
@@ -294,7 +332,7 @@ export function BoardClient() {
                   aria-label="Our team"
                   className="ml-2 rounded border border-zinc-300 bg-transparent px-2 py-1"
                   value={config.scout?.ownId ?? ""}
-                  onChange={(e) => setConfig((c) => (c.scout ? { ...c, scout: { ...c.scout, ownId: e.target.value || undefined } } : c))}
+                  onChange={(e) => updateScout({ ownId: e.target.value || undefined })}
                 >
                   <option value="">League-wide</option>
                   {teams.map((x) => (
@@ -311,7 +349,7 @@ export function BoardClient() {
               </button>
               <button
                 className="rounded border border-zinc-300 px-3 py-1.5 text-sm"
-                onClick={() => dispatch({ type: "scout", scout: config.scout })}
+                onClick={applyScoutOnly}
               >
                 Apply scouting only (keeps the draft)
               </button>
@@ -328,6 +366,14 @@ export function BoardClient() {
           <span className="text-sm text-zinc-500">
             Bo{state.config.format}, {state.config.fearless ? "Fearless" : "standard"}
           </span>
+          {view.games.some((g) => g.winner) ? (
+            <span className="text-sm" aria-label="Game results">
+              {view.games
+                .filter((g) => g.winner)
+                .map((g) => `G${g.number}: ${names(g.winner!)}`)
+                .join(", ")}
+            </span>
+          ) : null}
           <div className="ml-auto flex gap-2 text-sm">
             <button className="rounded border border-zinc-300 px-2 py-1 disabled:opacity-40" disabled={state.log.length === 0} onClick={() => dispatch({ type: "undo" })}>
               Undo
@@ -382,14 +428,18 @@ export function BoardClient() {
                   <input
                     aria-label="Search champions"
                     className="rounded border border-zinc-300 bg-transparent px-2 py-1"
-                    placeholder="Search champion"
+                    placeholder="Search champion, Enter to pick"
                     value={query}
+                    autoFocus
                     onChange={(e) => setQuery(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && q) choose(firstOpen?.name ?? query.trim());
+                    }}
                   />
                   {view.next.kind === "pick" ? (
                     <label>
                       Role{" "}
-                      <select className="rounded border border-zinc-300 bg-transparent px-2 py-1" value={role} onChange={(e) => setRole(e.target.value as Role | "auto")}>
+                      <select className="rounded border border-zinc-300 bg-transparent px-2 py-1" value={role !== "auto" && filled(view.next.team).includes(role) ? "auto" : role} onChange={(e) => setRole(e.target.value as Role | "auto")}>
                         <option value="auto">auto</option>
                         {ROLES.filter((r) => !filled(view.next!.team).includes(r)).map((r) => (
                           <option key={r} value={r}>
@@ -409,26 +459,43 @@ export function BoardClient() {
                     </button>
                   ) : null}
                 </div>
-                <ul className="mt-3 grid max-h-64 grid-cols-2 gap-1 overflow-y-auto sm:grid-cols-4 md:grid-cols-6">
+                <ul className="mt-2 flex max-h-40 flex-wrap gap-1 overflow-y-auto">
                   {visible.map((c) => {
                     const reason = unavailableReason(state.config, view, c.name);
                     return (
                       <li key={c.name}>
                         <button
-                          className="flex w-full items-center gap-2 rounded border border-zinc-200 px-2 py-1 text-left text-sm enabled:hover:bg-zinc-100 disabled:opacity-40 dark:border-zinc-800 dark:enabled:hover:bg-zinc-900"
+                          className="flex items-center gap-1 rounded border border-zinc-200 px-1.5 py-0.5 text-left text-xs enabled:hover:bg-zinc-100 disabled:opacity-40 dark:border-zinc-800 dark:enabled:hover:bg-zinc-900"
                           disabled={!!reason}
                           title={reason ?? undefined}
                           onClick={() => choose(c.name)}
                         >
-                          <span className="inline-flex h-6 w-6 items-center justify-center rounded bg-zinc-200 text-xs font-semibold text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">
+                          <span className="inline-flex h-4 w-4 items-center justify-center rounded bg-zinc-200 text-[10px] font-semibold text-zinc-700 dark:bg-zinc-800 dark:text-zinc-200">
                             {initials(c.name)}
                           </span>
-                          <span className="truncate">{c.name}</span>
+                          <span>{c.name}</span>
                         </button>
                       </li>
                     );
                   })}
                 </ul>
+                {!q && !showAll ? (
+                  <p className="mt-2 text-xs text-zinc-500">
+                    Type a name and press Enter, click a suggestion above, or{" "}
+                    <button className="underline" onClick={() => setShowAll(true)}>
+                      browse all champions
+                    </button>
+                    .
+                  </p>
+                ) : null}
+                {showAll && !q ? (
+                  <button className="mt-1 text-xs underline" onClick={() => setShowAll(false)}>
+                    Hide the full list
+                  </button>
+                ) : null}
+                {q && matches.length > visible.length ? (
+                  <p className="mt-1 text-xs text-zinc-500">{matches.length - visible.length} more, keep typing to narrow.</p>
+                ) : null}
                 {champions.length === 0 ? <p className="mt-2 text-sm text-zinc-500">Loading champion list...</p> : null}
               </div>
             ) : (

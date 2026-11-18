@@ -44,6 +44,7 @@ export default async function TeamPage({ params }: PageProps<"/team/[id]">) {
   if (!team) notFound();
   const f = team.fearless;
   const g1 = f?.byGame["1"];
+  const g2 = f?.byGame["2"];
   const g3 = f?.byGame["3+"];
   return (
     <main className="mx-auto w-full max-w-4xl px-6 py-10">
@@ -93,12 +94,12 @@ export default async function TeamPage({ params }: PageProps<"/team/[id]">) {
         <Chips items={team.bansAgainst.slice(0, 8)} total={team.games} />
       </Section>
 
-      {f && g1 && g3 ? (
+      {f && g1 && g2 && g3 ? (
         <Section
-          title="Fearless shift: game 1 versus game 3 and later"
+          title="Fearless shift: game 1, game 2, game 3 and later"
           note="Only games in Fearless series. In Fearless Draft a champion picked in an earlier game cannot be picked again by either team."
         >
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-3">
             <div>
               <h3 className="font-medium">
                 Game 1 <span className="text-sm text-zinc-500">({g1.games} games)</span>
@@ -107,6 +108,15 @@ export default async function TeamPage({ params }: PageProps<"/team/[id]">) {
               <Chips items={g1.topPicks} total={g1.games} />
               <p className="mt-2 text-xs text-zinc-500">Top bans</p>
               <Chips items={g1.topBans} total={g1.games} />
+            </div>
+            <div>
+              <h3 className="font-medium">
+                Game 2 <span className="text-sm text-zinc-500">({g2.games} games)</span>
+              </h3>
+              <p className="mt-1 text-xs text-zinc-500">Top picks</p>
+              <Chips items={g2.topPicks} total={g2.games} />
+              <p className="mt-2 text-xs text-zinc-500">Top bans</p>
+              <Chips items={g2.topBans} total={g2.games} />
             </div>
             <div>
               <h3 className="font-medium">
@@ -120,9 +130,9 @@ export default async function TeamPage({ params }: PageProps<"/team/[id]">) {
           </div>
           <p className="mt-4 text-sm">
             Comfort share (picks from the team&apos;s ten most picked champions): game 1 {Math.round(g1.comfortShare * 100)}%,
-            game 3+ {Math.round(g3.comfortShare * 100)}%. Top-5 pick overlap between game 1 and game 3+:{" "}
+            game 2 {Math.round(g2.comfortShare * 100)}%, game 3+ {Math.round(g3.comfortShare * 100)}%. Top-5 pick overlap between game 1 and game 3+:{" "}
             {f.top5PickOverlapG1vsG3 === null ? "n/a" : Math.round(f.top5PickOverlapG1vsG3 * 100) + "%"}.
-            {g3.games < LOW_SAMPLE ? <span className="ml-2 rounded bg-amber-100 px-1.5 text-xs text-amber-800">low sample</span> : null}
+            {Math.min(g2.games, g3.games) < LOW_SAMPLE ? <span className="ml-2 rounded bg-amber-100 px-1.5 text-xs text-amber-800">low sample</span> : null}
           </p>
         </Section>
       ) : (

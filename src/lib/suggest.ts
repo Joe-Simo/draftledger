@@ -239,3 +239,19 @@ export function nextGameOutlook(ctx: Pick<Context, "config" | "view" | "opponent
     comfortNote,
   };
 }
+
+/**
+ * Name and pool the two board teams from aggregates: the scouted opponent takes its board side, and
+ * "our team" (if chosen) takes the other side. Teams without an aggregate keep what they have.
+ */
+export function applyScoutSetup(config: BoardConfig, teams: TeamAggregate[]): BoardConfig {
+  const scout = config.scout;
+  if (!scout) return config;
+  const opp = teams.find((t) => t.teamId === scout.opponentId);
+  const own = teams.find((t) => t.teamId === scout.ownId);
+  const ownKey = other(scout.opponent);
+  const next = { ...config, teams: { ...config.teams } };
+  if (opp) next.teams[scout.opponent] = { ...config.teams[scout.opponent], name: opp.name, pool: poolsFromTeam(opp, 2) };
+  if (own) next.teams[ownKey] = { ...config.teams[ownKey], name: own.name, pool: poolsFromTeam(own, 2) };
+  return next;
+}

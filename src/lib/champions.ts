@@ -36,12 +36,16 @@ export function initials(name: string): string {
   return (words[0][0] + words[1][0]).toUpperCase();
 }
 
-/** The role this champion is most often played in among the roles the team has not filled yet. */
-export function suggestRole(info: ChampionInfo | undefined, filled: Role[]): Role | null {
+/**
+ * The role this champion is most often played in (champions.json role counts, from the role
+ * inference) among the roles the team has not filled yet. With no role data for the open roles,
+ * a role whose pool already lists the champion wins, otherwise the first open role.
+ */
+export function suggestRole(info: ChampionInfo | undefined, filled: Role[], poolRoles: Role[] = []): Role | null {
   const open = ROLES.filter((r) => !filled.includes(r));
   if (open.length === 0) return null;
-  let best: Role = open[0];
-  let bestCount = -1;
+  let best: Role | null = null;
+  let bestCount = 0;
   for (const r of open) {
     const n = info?.roles[r] ?? 0;
     if (n > bestCount) {
@@ -49,7 +53,22 @@ export function suggestRole(info: ChampionInfo | undefined, filled: Role[]): Rol
       bestCount = n;
     }
   }
-  return best;
+  if (best) return best;
+  return poolRoles.find((r) => open.includes(r)) ?? open[0];
+}
+
+/**
+ * Role for a pick. A manual choice is honoured only while that role is still open; otherwise (and for
+ * "auto") the champion's most common open role is used.
+ */
+export function resolvePickRole(
+  selected: Role | "auto",
+  info: ChampionInfo | undefined,
+  filled: Role[],
+  poolRoles: Role[] = [],
+): Role | null {
+  if (selected !== "auto" && !filled.includes(selected)) return selected;
+  return suggestRole(info, filled, poolRoles);
 }
 
 export type Pools = Record<Role, string[]>;

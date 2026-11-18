@@ -1,6 +1,6 @@
 import type { TeamAggregate } from "./aggregate.ts";
 import { deriveView, other, type BoardConfig, type BoardEvent, type TeamKey } from "./board.ts";
-import { buildInsights, pctText, type InsightResult } from "./insights.ts";
+import { buildInsights, insightContext, pctText, type InsightResult } from "./insights.ts";
 import { nextGameOutlook, type NextGameOutlook } from "./suggest.ts";
 import type { Role } from "./types.ts";
 
@@ -18,12 +18,13 @@ export interface PrepSheet {
 export function buildPrepSheet(config: BoardConfig, log: readonly BoardEvent[], opponent: TeamAggregate, generated: string): PrepSheet {
   const view = deriveView(config, log);
   const name = (t: TeamKey) => config.teams[t].name || `Team ${t}`;
+  const ours = other(config.scout?.opponent ?? "B");
   return {
-    title: `Prep sheet: ${name(config.scout ? other(config.scout.opponent) : "A")} vs ${opponent.name}`,
+    title: `Prep sheet: ${name(ours)} vs ${opponent.name}`,
     generated,
     opponent,
     config,
-    insights: buildInsights(opponent, { maxRemainingGames: view.maxRemainingGames || undefined }),
+    insights: buildInsights(opponent, insightContext(config, view)),
     outlook: nextGameOutlook({ config, view, opponent }),
     drafts: view.games
       .filter((g) => g.actions.length > 0)
@@ -47,9 +48,10 @@ export function toMarkdown(s: PrepSheet): string {
   L.push(`# ${s.title}`, "");
   L.push(`Generated ${s.generated}. Scouted team: ${o.name}, ${o.games} games in ${o.series} series (${o.firstDate.slice(0, 10)} to ${o.lastDate.slice(0, 10)}), ${o.fearlessGames} Fearless games, win rate ${pctText(o.wins / o.games)}.`);
   L.push(`Series: Bo${s.config.format}, ${s.config.fearless ? "Fearless Draft" : "standard draft"}.`, "");
-  L.push("## How to win", "");
+  L.push(`## How to win (for game ${s.insights.gameNumber})`, "");
   if (s.insights.insights.length === 0) L.push("No claim has enough data behind it.");
   for (const i of s.insights.insights) L.push(`- **${i.text}** [${i.confidence} confidence, n=${i.n}] Evidence: ${i.evidence}`);
+  if (s.insights.lockedOut.length) L.push("", `Not advised because they are already locked or used: ${s.insights.lockedOut.join(", ")}.`);
   L.push("", `${s.insights.suppressed} candidate insight(s) were left out because the sample was too small or the effect was not clear.`, "");
   L.push("## Most picked", "", "| Champion | Role | Games | Of | Win rate | Avg pick # |", "|---|---|---|---|---|---|");
   for (const p of o.picks.slice(0, 12)) L.push(`| ${p.champion} | ${role(p.roles)} | ${p.games} | ${o.games} | ${pctText(p.wins / p.games)} | ${p.avgOrder} |`);

@@ -64,8 +64,8 @@ export type BoardCommand =
   | { type: "undo" }
   | { type: "redo" }
   | { type: "configure"; config: BoardConfig }
-  /** Change the scouted opponent without touching the draft log. */
-  | { type: "scout"; scout: Scout | undefined };
+  /** Change the scouted opponent (and optionally team names and pools) without touching the draft log. */
+  | { type: "scout"; scout: Scout | undefined; teams?: BoardConfig["teams"] };
 
 export interface ActionView {
   step: Step;
@@ -275,7 +275,7 @@ export function boardReducer(state: BoardState, cmd: BoardCommand): { state: Boa
     case "configure":
       return { state: initialState(cmd.config) };
     case "scout":
-      return { state: { ...state, config: { ...state.config, scout: cmd.scout } } };
+      return { state: { ...state, config: { ...state.config, scout: cmd.scout, teams: cmd.teams ?? state.config.teams } } };
     case "undo": {
       const last = state.log[state.log.length - 1];
       if (!last) return { state, error: "nothing to undo" };
