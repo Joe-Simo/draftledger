@@ -19,6 +19,15 @@ npm test           # Vitest
 npm run typecheck
 ```
 
+Run the production build locally (static export, no dev overlay):
+
+```bash
+npm ci && npm run build
+python3 -m http.server 4180 --directory out   # http://127.0.0.1:4180/board/
+```
+
+`tests/e2e-path.test.ts` covers the demo path end to end through the real modules: load the aggregates over HTTP, set up a Fearless Bo3, draft game 1 from the recommendations, record the result, check the Fearless lock in game 2, export the prep sheet.
+
 ## GRID data
 
 The official GRID match data is licensed only for the hackathon and must never
