@@ -51,7 +51,7 @@ npm run build            # static export into out/
 
 ## Documentation
 
-- `METHODOLOGY.md`: data, role inference and its limits, Fearless detection, confidence thresholds and intervals.
+- `METHODOLOGY.md` (also at `/methodology`): data, role inference and its limits, Fearless detection, confidence thresholds and intervals.
 - `AI_SHOWCASE.md`: how the agents built it, the IntelliJ IDEA loop, the QA loop.
 - `docs/accessibility.md`: keyboard shortcuts, axe results, manual checklist.
 - `docs/demo-script.md`: demo video script.

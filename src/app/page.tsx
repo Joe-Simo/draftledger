@@ -17,6 +17,12 @@ export default function Home() {
         </Link>{" "}
         to run a Bo1, Bo3 or Bo5 Fearless draft with role pools.
       </p>
+      <p className="mt-2 text-sm">
+        <Link className="font-medium underline-offset-2 hover:underline" href="/methodology">
+          Read the methodology
+        </Link>{" "}
+        for where the numbers come from and how far to trust them.
+      </p>
       <p className="mt-2 text-sm text-zinc-500">
         {meta.games.toLocaleString()} games from {meta.series} series, {meta.fearlessSeries} of them Fearless series.
         Teams with at least {meta.minGamesPerTeam} games are listed.

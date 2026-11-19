@@ -85,7 +85,7 @@ describe("color contrast (WCAG AA, 4.5:1 for normal text)", () => {
 describe("page structure", () => {
   it("has a skip link that targets the main landmark on every page", () => {
     expect(readFileSync("src/app/layout.tsx", "utf8")).toContain('href="#main"');
-    for (const f of ["src/app/page.tsx", "src/app/board/BoardClient.tsx", "src/app/team/[id]/page.tsx"]) {
+    for (const f of ["src/app/page.tsx", "src/app/board/BoardClient.tsx", "src/app/team/[id]/page.tsx", "src/app/methodology/page.tsx"]) {
       expect(readFileSync(f, "utf8"), f).toContain('<main id="main"');
     }
   });
