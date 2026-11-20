@@ -15,7 +15,7 @@ Honest scope of this evidence:
 | File | Committed | Why |
 | --- | --- | --- |
 | `inspectionProfiles/`, `misc.xml`, `modules.xml`, `draftledger.iml`, `vcs.xml` | yes | Shared project model and the profile the inspections use. |
-| `workspace.xml` | yes | JetBrains guidance treats it as user-specific, but it is evidence that the IDE really opened the project. It holds no secrets: run configurations, the project id and one absolute path (`ts.external.directory.path`, a box path to `node_modules/typescript/lib`). The IDE rewrites it on every open, so expect noisy diffs. It is removed from `.idea/.gitignore` for that reason. |
+| `workspace.xml` | no | Per-user IDE state, rewritten on every open. It holds no secrets (the historical copy in git had only run configurations, a project id, and a local path to `node_modules/typescript/lib`). GUI evidence is the committed screenshots `../qa/ide-01.png` and `../qa/ide-02.png`. Ignored in `.gitignore` and `.idea/.gitignore`. |
 | `shelf/`, `usage.statistics.xml`, `dataSources/`, `httpRequests/` | no | Per-user state, still ignored. |
 
 ## How the inspections run

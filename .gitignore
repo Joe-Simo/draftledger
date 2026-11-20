@@ -55,3 +55,10 @@ stl-hackathon-2026-grid-starter/
 qa/*.md
 qa/*.csv
 qa/*.tsv
+
+# Per-user IntelliJ state (rewritten on every IDE open; not evidence we need in the public repo)
+.idea/workspace.xml
+
+# Local Junie session notes and screenshots; committed QA shots of the app stay tracked
+jetbrains/junie/
+qa/junie-*.png

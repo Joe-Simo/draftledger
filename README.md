@@ -10,6 +10,31 @@ pools, scouting suggestions, how-to-win insights, prep sheet export), and
 per-game plans with live checks and a series forecast (ported from the Fearplan
 prototype). Data audit: `docs/data-notes.md`.
 
+## Live demo
+
+Public site (GitHub Pages): https://joe-simo.github.io/draftledger/
+
+- Home: https://joe-simo.github.io/draftledger/
+- Series board: https://joe-simo.github.io/draftledger/board/
+- Methodology: https://joe-simo.github.io/draftledger/methodology/
+
+Source: https://github.com/Joe-Simo/draftledger
+
+## Data and Riot API
+
+DraftLedger uses only the official Cloud9 GRID starter data for this hackathon.
+The public build ships derived aggregates under `public/data/` (per-team pick,
+ban, and win counts, plus champion role frequencies). Those counts are what the
+demo needs to run. Raw GRID files, JSONL, Parquet, and the `.derived/` extract
+are not in the repository and are not in the Pages artifact.
+
+The app never calls the Riot API.
+
+Risk: no Riot Developer Portal registration was done, because DraftLedger never
+calls the Riot API. If the organizers later require a registered product, that
+step would need Joe's Riot account and is not something this project can
+complete on its own.
+
 ## Develop
 
 ```bash
@@ -59,9 +84,10 @@ npm run build            # static export into out/
 
 ## Deploy to GitHub Pages
 
-`.github/workflows/pages.yml` runs the checks and builds the static export with `NEXT_PUBLIC_BASE_PATH`
-(default `/<repo name>`, override with the repository variable `PAGES_BASE_PATH`, empty for a custom domain).
-It is prepared only; nothing is pushed or published yet. Local build with a base path:
+`.github/workflows/pages.yml` runs the checks and builds the static export with
+`NEXT_PUBLIC_BASE_PATH` set to `/draftledger` (override with the repository
+variable `PAGES_BASE_PATH`, empty for a custom domain). The live site is
+https://joe-simo.github.io/draftledger/. Local build with the same base path:
 
 ```bash
 NEXT_PUBLIC_BASE_PATH=/draftledger npm run build
