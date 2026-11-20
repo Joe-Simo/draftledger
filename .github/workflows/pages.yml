@@ -1,0 +1,56 @@
+name: Deploy to GitHub Pages
+
+# Prepared but not active until this repository is pushed to GitHub and Pages is set to "GitHub Actions"
+# (Settings, Pages, Source). It builds the static export and publishes out/.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          # The IDE cannot see action inputs offline, so its parameter check is suppressed on these lines.
+          # noinspection UndefinedParamsPresent
+          node-version: 24
+          # noinspection UndefinedParamsPresent
+          cache: npm
+      - run: npm ci
+      - run: npm run check:no-data
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test
+      - name: Build static export
+        env:
+          # Project site at https://joe-simo.github.io/draftledger/. Override with repo variable
+          # PAGES_BASE_PATH (set it to an empty string for a user site or a custom domain).
+          NEXT_PUBLIC_BASE_PATH: ${{ vars.PAGES_BASE_PATH != '' && vars.PAGES_BASE_PATH || '/draftledger' }}
+        run: npm run build
+      - run: touch out/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          # noinspection UndefinedParamsPresent
+          path: out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
